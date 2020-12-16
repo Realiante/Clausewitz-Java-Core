@@ -1,0 +1,28 @@
+e_empire_tier = {
+       color = { 0 0 0 }
+       color2 = { 255 255 255 }
+       capital = c_county_tier
+
+       k_kingdom_tier = {
+           color = { 0 0 0 }
+           color2 = { 255 255 255 }
+           capital = c_county_tier
+
+           d_duchy_tier = {
+               color = { 0 0 0 }
+               color2 = { 255 255 255 }
+               capital = c_county_tier
+
+               c_county_tier = {
+                   color = { 0 0 0 }
+                   color2 = { 255 255 255 }
+
+                   b_barony_tier = {
+                       color = { 0 0 0 }
+                       color2 = { 255 255 255 }
+                       province = id
+                   }
+               }
+           }
+       }
+   }
