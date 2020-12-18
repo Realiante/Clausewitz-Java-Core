@@ -86,4 +86,12 @@
             </plugin>
         </plugins>
     </build>
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>Github Realiante Clausewitz Parser</name>
+            <url>https://maven.pkg.github.com/Realiante/Clausewitz-Java-Core</url>
+        </repository>
+    </distributionManagement>
 </project>
