@@ -19,39 +19,15 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    
     <parent>
         <artifactId>clausewitz-java-core</artifactId>
         <groupId>dev.rea</groupId>
-        <version>0.0.1</version>
+        <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>clausewitz-java-reader</artifactId>
-    <version>1.0</version>
+    <artifactId>clausewitz-java-interfaces</artifactId>
+    <version>1.0-SNAPSHOT</version>
 
-    <name>Clausewitz Reader</name>
-    <description>Reads clausewitz file and parses it to a list</description>
-
-    <dependencies>
-        <dependency>
-            <groupId>dev.rea</groupId>
-            <artifactId>clausewitz-java-entries</artifactId>
-            <version>1.0</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>dev.rea</groupId>
-            <artifactId>clausewitz-java-parser</artifactId>
-            <version>1.0</version>
-            <scope>compile</scope>
-        </dependency>
-    </dependencies>
-
-    <distributionManagement>
-        <repository>
-            <id>github</id>
-            <name>Github Realiante Clausewitz Parser</name>
-            <url>https://maven.pkg.github.com/Realiante/Clausewitz-Java-Core</url>
-        </repository>
-    </distributionManagement>
 
 </project>

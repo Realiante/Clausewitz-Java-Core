@@ -1,0 +1,3 @@
+module clausewitz.java.interfaces {
+
+}
