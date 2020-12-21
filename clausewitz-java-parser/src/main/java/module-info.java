@@ -4,6 +4,6 @@ module clausewitz.java.parser {
     exports dev.rea.clausewitz.entries;
     exports dev.rea.clausewitz.datatypes;
 
-    opens dev.rea.clausewitz.entries;
+    opens dev.rea.clausewitz.entries to clausewitz.java.interfaces, clausewitz.java.core;
     opens dev.rea.clausewitz.datatypes;
 }

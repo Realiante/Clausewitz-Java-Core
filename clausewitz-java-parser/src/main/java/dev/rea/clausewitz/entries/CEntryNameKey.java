@@ -20,9 +20,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-final class CEntryNameKey {
+public final class CEntryNameKey {
 
-    protected static final Map<String, CEntryNameKey> findMap = new HashMap<>();
+    private static final Map<String, CEntryNameKey> findMap = new HashMap<>();
     private static long lastID = 0;
     private final long id;
     private String currentName;
@@ -30,6 +30,14 @@ final class CEntryNameKey {
     public CEntryNameKey(String name) {
         id = lastID++;
         setNewLegalName(name);
+    }
+
+    public static CEntryNameKey findKeyByName(String name) {
+        return findMap.get(name);
+    }
+
+    public static boolean isStringLegal(String string) {
+        return !(string == null || string.length() == 0) && (string.matches("(\"(.*?)\")|([A-Za-z][\\w.%-]*)"));
     }
 
     public String getCurrentName() {

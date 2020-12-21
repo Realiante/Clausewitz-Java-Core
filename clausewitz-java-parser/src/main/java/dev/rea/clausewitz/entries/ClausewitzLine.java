@@ -16,26 +16,28 @@
 
 package dev.rea.clausewitz.entries;
 
+import dev.rea.clausewitz.datatypes.ClausewitzValueOperator;
+
 import java.util.Optional;
 
-public abstract class ClausewitzEntry {
+public abstract class ClausewitzLine {
 
     private final CEntryNameKey nameKey;
 
-    protected ClausewitzMapEntry parent;
-    private ClausewitzValueOperator valueOperator;
+    protected ClausewitzMapLine parent;
+    public final ClausewitzValueOperator valueOperator;
 
-    protected ClausewitzEntry(String name, ClausewitzValueOperator valueOperator) {
+    protected ClausewitzLine(String name, ClausewitzValueOperator valueOperator) {
         this.nameKey = new CEntryNameKey(name);
         this.valueOperator = valueOperator;
     }
 
-    protected ClausewitzEntry(ClausewitzMapEntry parent, String name, ClausewitzValueOperator valueOperator) {
+    protected ClausewitzLine(ClausewitzMapLine parent, String name, ClausewitzValueOperator valueOperator) {
         this(name, valueOperator);
         setParent(parent);
     }
 
-    CEntryNameKey getKey() {
+    public CEntryNameKey getKey() {
         return nameKey;
     }
 
@@ -47,11 +49,11 @@ public abstract class ClausewitzEntry {
         nameKey.setNewLegalName(newName);
     }
 
-    public Optional<ClausewitzMapEntry> getParent() {
+    public Optional<ClausewitzMapLine> getParent() {
         return Optional.ofNullable(parent);
     }
 
-    public void setParent(ClausewitzMapEntry parent) {
+    public void setParent(ClausewitzMapLine parent) {
         if (this.parent != parent) {
             if (parent == null) {
                 this.parent.removeChild(this);
@@ -66,14 +68,6 @@ public abstract class ClausewitzEntry {
         }
     }
 
-    public ClausewitzValueOperator getValueOperator() {
-        return valueOperator;
-    }
-
-    public void setValueOperator(ClausewitzValueOperator valueOperator) {
-        this.valueOperator = valueOperator;
-    }
-
     @Override
     public String toString() {
         return String.format("%s %s %s %n",
@@ -82,7 +76,7 @@ public abstract class ClausewitzEntry {
 
     public int getDepth() {
         int depth = 0;
-        ClausewitzEntry temp = parent;
+        ClausewitzLine temp = parent;
         while (temp != null) {
             temp = temp.parent;
             depth++;
@@ -92,32 +86,4 @@ public abstract class ClausewitzEntry {
 
     public abstract String valueToString();
 
-    public enum ClausewitzValueOperator {
-        EQUAL("="),
-        GREATER_OR_EQUAL(">="),
-        LESSER_OR_EQUAL("<="),
-        GREATER(">"),
-        LESSER("<");
-
-        String op;
-
-        ClausewitzValueOperator(String op) {
-            this.op = op;
-        }
-
-        public static ClausewitzValueOperator get(String operation) {
-            for (var operator : values()) {
-                if (operator.op.equals(operation)) {
-                    return operator;
-                }
-            }
-
-            throw new IllegalArgumentException();
-        }
-
-        @Override
-        public String toString() {
-            return op;
-        }
-    }
 }

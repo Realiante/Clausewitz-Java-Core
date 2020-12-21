@@ -17,21 +17,22 @@
 package dev.rea.clausewitz.entries;
 
 import dev.rea.clausewitz.datatypes.ClausewitzDataType;
+import dev.rea.clausewitz.datatypes.ClausewitzValueOperator;
 import dev.rea.clausewitz.datatypes.UnsupportedObjectTypeException;
 
 import java.util.ArrayList;
 
-public class ClausewitzObjectEntry extends ClausewitzEntry {
+public class ClausewitzObjectLine extends ClausewitzLine {
 
     private Object object;
     private ClausewitzDataType type;
 
-    public ClausewitzObjectEntry(ClausewitzMapEntry parent, String name, ClausewitzValueOperator valueOperator, Object object) {
+    public ClausewitzObjectLine(ClausewitzMapLine parent, String name, ClausewitzValueOperator valueOperator, Object object) {
         super(parent, name, valueOperator);
         setLegalObject(object);
     }
 
-    public ClausewitzObjectEntry(String name, ClausewitzValueOperator valueOperator, Object object) {
+    public ClausewitzObjectLine(String name, ClausewitzValueOperator valueOperator, Object object) {
         super(name, valueOperator);
         setLegalObject(object);
     }

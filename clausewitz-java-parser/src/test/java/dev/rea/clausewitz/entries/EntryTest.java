@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
-import static dev.rea.clausewitz.entries.ClausewitzEntry.ClausewitzValueOperator.EQUAL;
+import static dev.rea.clausewitz.datatypes.ClausewitzValueOperator.EQUAL;
 
 class EntryTest {
 
@@ -29,25 +29,25 @@ class EntryTest {
     void EntryNameThrowTest() {
         Assertions.assertThrows(
                 IllegalClausewitzEntryNameException.class,
-                () -> new ClausewitzObjectEntry("", EQUAL, 123));
+                () -> new ClausewitzObjectLine("", EQUAL, 123));
 
         Assertions.assertThrows(
                 IllegalClausewitzEntryNameException.class,
-                () -> new ClausewitzObjectEntry(null, EQUAL, 123));
+                () -> new ClausewitzObjectLine(null, EQUAL, 123));
     }
 
     @Test
     void findableFromParentTest() {
-        ClausewitzMapEntry parent = new ClausewitzMapEntry("Parent", EQUAL);
-        ClausewitzObjectEntry entry = new ClausewitzObjectEntry(parent, "FIRST", EQUAL, "Object");
+        ClausewitzMapLine parent = new ClausewitzMapLine("Parent", EQUAL);
+        ClausewitzObjectLine entry = new ClausewitzObjectLine(parent, "FIRST", EQUAL, "Object");
 
         Assertions.assertTrue(entry.getParent().isPresent());
-        Assertions.assertEquals(CEntryNameKey.findMap.get("FIRST"), entry.getKey());
+        Assertions.assertEquals(CEntryNameKey.findKeyByName("FIRST"), entry.getKey());
         Assertions.assertTrue(Optional.ofNullable(parent.getChild("FIRST")).isPresent());
 
         entry.setName("SECOND");
 
-        Assertions.assertEquals(CEntryNameKey.findMap.get("SECOND"), entry.getKey());
+        Assertions.assertEquals(CEntryNameKey.findKeyByName("SECOND"), entry.getKey());
         Assertions.assertFalse(Optional.ofNullable(parent.getChild("FIRST")).isPresent());
         Assertions.assertTrue(Optional.ofNullable(parent.getChild("SECOND")).isPresent());
         Assertions.assertEquals(parent.getChild("SECOND").getName(), entry.getName());
