@@ -16,10 +16,11 @@
 
 package dev.rea.clausewitz.interfaces;
 
-import dev.rea.clausewitz.entries.ClausewitzMapEntry;
+import java.util.Optional;
 
-public interface ClausewitzMapObjectBuilder<T extends ClausewitzMapObject> {
+public interface Result<T> {
 
-    T build(ClausewitzMapEntry entry);
+    Optional<String> getMessage();
 
+    Optional<T> getResult();
 }

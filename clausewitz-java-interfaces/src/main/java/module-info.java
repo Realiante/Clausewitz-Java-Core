@@ -1,3 +1,7 @@
 module clausewitz.java.interfaces {
-    requires transitive clausewitz.java.parser;
+    requires clausewitz.java.parser;
+
+    exports dev.rea.clausewitz.interfaces;
+
+    opens dev.rea.clausewitz.interfaces;
 }

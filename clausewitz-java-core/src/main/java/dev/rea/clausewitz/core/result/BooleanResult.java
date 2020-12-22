@@ -14,33 +14,34 @@
  *    limitations under the License.
  */
 
-package dev.rea.clausewitz.datatypes;
+package dev.rea.clausewitz.core.result;
 
-public enum ClausewitzValueOperator {
-    EQUAL("="),
-    GREATER_OR_EQUAL(">="),
-    LESSER_OR_EQUAL("<="),
-    GREATER(">"),
-    LESSER("<");
+import dev.rea.clausewitz.interfaces.Result;
 
-    String op;
+import java.util.Optional;
 
-    ClausewitzValueOperator(String op) {
-        this.op = op;
+public final class BooleanResult implements Result<Boolean> {
+
+    private final String message;
+    private final boolean result;
+
+    public BooleanResult(boolean result) {
+        this.result = result;
+        this.message = null;
     }
 
-    public static ClausewitzValueOperator get(String operation) {
-        for (var operator : values()) {
-            if (operator.op.equals(operation)) {
-                return operator;
-            }
-        }
-
-        throw new IllegalArgumentException();
+    public BooleanResult(String message, boolean result) {
+        this.message = message;
+        this.result = result;
     }
 
     @Override
-    public String toString() {
-        return op;
+    public Optional<String> getMessage() {
+        return Optional.ofNullable(message);
+    }
+
+    @Override
+    public Optional<Boolean> getResult() {
+        return Optional.of(result);
     }
 }

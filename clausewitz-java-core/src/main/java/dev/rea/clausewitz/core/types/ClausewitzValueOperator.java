@@ -14,12 +14,33 @@
  *    limitations under the License.
  */
 
-package dev.rea.clausewitz.interfaces;
+package dev.rea.clausewitz.core.types;
 
-import java.util.Map;
+public enum ClausewitzValueOperator {
+    EQUAL("="),
+    GREATER_OR_EQUAL(">="),
+    LESSER_OR_EQUAL("<="),
+    GREATER(">"),
+    LESSER("<");
 
-public interface ClausewitzMapObject {
+    String op;
 
-    Map<String, Object> getMap();
+    ClausewitzValueOperator(String op) {
+        this.op = op;
+    }
 
+    public static ClausewitzValueOperator get(String operation) {
+        for (var operator : values()) {
+            if (operator.op.equals(operation)) {
+                return operator;
+            }
+        }
+
+        throw new IllegalArgumentException();
+    }
+
+    @Override
+    public String toString() {
+        return op;
+    }
 }

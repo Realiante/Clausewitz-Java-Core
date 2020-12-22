@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package dev.rea.clausewitz.datatypes;
+package dev.rea.clausewitz.core.types;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -23,15 +23,13 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.params.provider.Arguments.of;
-
 class CPercentTest {
 
     static Stream<Arguments> parseTestSource() {
         return Stream.of(
-                of("1%", new ClausewitzPercent(1)),
-                of("2%", new ClausewitzPercent(2)),
-                of("155%", new ClausewitzPercent(155))
+                Arguments.of("1%", new ClausewitzPercent(1)),
+                Arguments.of("2%", new ClausewitzPercent(2)),
+                Arguments.of("155%", new ClausewitzPercent(155))
         );
     }
 

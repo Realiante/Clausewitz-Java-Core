@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package dev.rea.clausewitz.datatypes;
+package dev.rea.clausewitz.core.types;
 
 import java.util.Arrays;
 import java.util.Objects;

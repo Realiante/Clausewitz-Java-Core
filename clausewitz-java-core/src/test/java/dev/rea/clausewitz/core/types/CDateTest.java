@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package dev.rea.clausewitz.datatypes;
+package dev.rea.clausewitz.core.types;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -23,16 +23,14 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.params.provider.Arguments.of;
-
 class CDateTest {
 
     static Stream<Arguments> parseStringTestSource() {
         return Stream.of(
-                of("2.13.24.2", new ClausewitzDate(2, 13, 24, 2)),
-                of("3.3.3", new ClausewitzDate(3, 3, 3)),
-                of("1.2.3.4.5.6.7.8.9", new ClausewitzDate(1, 2, 3, 4, 5, 6, 7, 8, 9)),
-                of("2.11.12452", new ClausewitzDate(2, 11, 12452))
+                Arguments.of("2.13.24.2", new ClausewitzDate(2, 13, 24, 2)),
+                Arguments.of("3.3.3", new ClausewitzDate(3, 3, 3)),
+                Arguments.of("1.2.3.4.5.6.7.8.9", new ClausewitzDate(1, 2, 3, 4, 5, 6, 7, 8, 9)),
+                Arguments.of("2.11.12452", new ClausewitzDate(2, 11, 12452))
         );
     }
 

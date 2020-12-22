@@ -14,10 +14,14 @@
  *    limitations under the License.
  */
 
-package dev.rea.clausewitz.entries;
+package dev.rea.clausewitz.interfaces;
 
-public class IllegalClausewitzEntryNameException extends RuntimeException {
-    public IllegalClausewitzEntryNameException() {
-        super("Entry name cannot be null or empty!");
-    }
+public interface StringFormat<T> {
+
+    T parse(String string);
+
+    Result<Boolean> matchesFormat(String string);
+
+    Class<T> getFormatClass();
+
 }
