@@ -16,7 +16,7 @@
 
 package dev.rea.clausewitz.parser;
 
-import dev.rea.clausewitz.entries.ClausewitzLine;
+import dev.rea.clausewitz.entries.ClausewitzEntry;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -33,17 +33,17 @@ class FileParserTest {
         File file = new File(Objects.requireNonNull(
                 getClass().getClassLoader().getResource("test.txt")).toURI());
         ClausewitzFileParser parser = new ClausewitzFileParser(file);
-        ArrayList<ClausewitzLine> list = parser.parse();
+        ArrayList<ClausewitzEntry> list = parser.parse();
 
         Assertions.assertEquals(1, list.size());
-        ClausewitzLine entry = list.get(0);
+        ClausewitzEntry entry = list.get(0);
 
         String entryString = entry.toString();
         ClausewitzStringParser stringParser = new ClausewitzStringParser(entryString);
         list = stringParser.parse();
 
         Assertions.assertEquals(1, list.size());
-        ClausewitzLine entryFromString = list.get(0);
+        ClausewitzEntry entryFromString = list.get(0);
 
         Assertions.assertEquals(entry.toString(), entryFromString.toString());
     }

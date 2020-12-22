@@ -14,11 +14,28 @@
  *    limitations under the License.
  */
 
-package dev.rea.clausewitz.datatypes;
+package dev.rea.clausewitz.entries;
 
-public class UnsupportedObjectTypeException extends RuntimeException {
+public class ClausewitzSingleEntry extends ClausewitzEntry {
 
-    public UnsupportedObjectTypeException(Class<?> clazz) {
-        super(clazz + " is unsupported by this parser!");
+    private final String entry;
+
+    public ClausewitzSingleEntry(ClausewitzMapEntry parent, String name, String valueOperator, String entry) {
+        super(parent, name, valueOperator);
+        this.entry = entry;
+    }
+
+    public ClausewitzSingleEntry(String name, String valueOperator, String entry) {
+        super(name, valueOperator);
+        this.entry = entry;
+    }
+
+    public String getEntry() {
+        return entry;
+    }
+
+    @Override
+    public String valueToString() {
+        return entry;
     }
 }

@@ -16,8 +16,8 @@
 
 package dev.rea.clausewitz.parser;
 
-import dev.rea.clausewitz.entries.ClausewitzLine;
-import dev.rea.clausewitz.entries.ClausewitzMapLine;
+import dev.rea.clausewitz.entries.ClausewitzEntry;
+import dev.rea.clausewitz.entries.ClausewitzMapEntry;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -73,13 +73,13 @@ import java.util.stream.Stream;
     void parseString(String text, int count, int depth) {
         Assertions.assertDoesNotThrow(() -> {
             ClausewitzStringParser parser = new ClausewitzStringParser(text);
-            List<ClausewitzLine> list = parser.parse();
+            List<ClausewitzEntry> list = parser.parse();
             Assertions.assertEquals(count, list.size());
 
             int maxDepth = 0;
             for (var entry : list) {
-                if (entry instanceof ClausewitzMapLine) {
-                    maxDepth = Math.max(maxDepth, findMaxDepth((ClausewitzMapLine) entry));
+                if (entry instanceof ClausewitzMapEntry) {
+                    maxDepth = Math.max(maxDepth, findMaxDepth((ClausewitzMapEntry) entry));
                 }
             }
 
@@ -87,11 +87,11 @@ import java.util.stream.Stream;
         });
     }
 
-    int findMaxDepth(ClausewitzMapLine entry) {
+    int findMaxDepth(ClausewitzMapEntry entry) {
         int maxDepth = entry.getDepth();
         for (var child : entry.getChildren()) {
-            if (child instanceof ClausewitzMapLine) {
-                maxDepth = Math.max(maxDepth, findMaxDepth((ClausewitzMapLine) child));
+            if (child instanceof ClausewitzMapEntry) {
+                maxDepth = Math.max(maxDepth, findMaxDepth((ClausewitzMapEntry) child));
             }
         }
         return maxDepth;

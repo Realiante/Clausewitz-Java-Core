@@ -16,21 +16,19 @@
 
 package dev.rea.clausewitz.entries;
 
-import dev.rea.clausewitz.datatypes.ClausewitzValueOperator;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ClausewitzMapLine extends ClausewitzLine {
+public class ClausewitzMapEntry extends ClausewitzEntry {
 
-    private final ArrayList<ClausewitzLine> entries = new ArrayList<>();
-    private final HashMap<CEntryNameKey, ClausewitzLine> childMap = new HashMap<>();
+    private final ArrayList<ClausewitzEntry> entries = new ArrayList<>();
+    private final HashMap<String, ClausewitzEntry> childMap = new HashMap<>();
 
-    public ClausewitzMapLine(String name, ClausewitzValueOperator valueOperator) {
+    public ClausewitzMapEntry(String name, String valueOperator) {
         super(name, valueOperator);
     }
 
-    public ClausewitzMapLine(ClausewitzMapLine parent, String name, ClausewitzValueOperator valueOperator) {
+    public ClausewitzMapEntry(ClausewitzMapEntry parent, String name, String valueOperator) {
         super(parent, name, valueOperator);
     }
 
@@ -39,32 +37,21 @@ public class ClausewitzMapLine extends ClausewitzLine {
         return String.format("{%n%s%s}", new EntryStringBuilder(entries).build(), spacePrefix(this));
     }
 
-    public void addChild(ClausewitzLine entry) {
-        childMap.put(entry.getKey(), entry);
+    public void addChild(ClausewitzEntry entry) {
+        childMap.put(entry.name, entry);
         entries.add(entry);
-        entry.parent = this;
+        entry.setParent(this);
     }
 
-    public void removeChild(String name) {
-        ClausewitzLine entry = getChild(name);
-        childMap.remove(entry.getKey());
-        entry.parent = null;
+    public ClausewitzEntry getChild(String name) {
+        return childMap.get(name);
     }
 
-    public void removeChild(ClausewitzLine entry) {
-        childMap.remove(entry.getKey());
-        entry.parent = null;
-    }
-
-    public ClausewitzLine getChild(String name) {
-        return childMap.get(CEntryNameKey.findKeyByName(name));
-    }
-
-    public ArrayList<ClausewitzLine> getChildren() {
+    public ArrayList<ClausewitzEntry> getChildren() {
         return new ArrayList<>(entries);
     }
 
-    public void setChildren(ArrayList<ClausewitzLine> children) {
+    public void setChildren(ArrayList<ClausewitzEntry> children) {
         entries.clear();
         childMap.clear();
 
@@ -73,14 +60,14 @@ public class ClausewitzMapLine extends ClausewitzLine {
         }
     }
 
-    private String spacePrefix(ClausewitzLine entry) {
+    private String spacePrefix(ClausewitzEntry entry) {
         return "\t".repeat(entry.getDepth());
     }
 
     private class EntryStringBuilder {
-        final ArrayList<ClausewitzLine> entries;
+        final ArrayList<ClausewitzEntry> entries;
 
-        EntryStringBuilder(ArrayList<ClausewitzLine> entries) {
+        EntryStringBuilder(ArrayList<ClausewitzEntry> entries) {
             this.entries = entries;
         }
 
