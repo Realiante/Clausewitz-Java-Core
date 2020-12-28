@@ -22,15 +22,17 @@ import dev.rea.clausewitz.ClausewitzParser.PairContext;
 import dev.rea.clausewitz.entries.ClausewitzEntry;
 import dev.rea.clausewitz.entries.ClausewitzMapEntry;
 import dev.rea.clausewitz.entries.ClausewitzSingleEntry;
+import org.antlr.v4.runtime.tree.ErrorNode;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static dev.rea.clausewitz.ClausewitzParser.ValueContext;
 
 final class ClausewitzListenerImpl extends ClausewitzBaseListener {
 
-    private final List<ClausewitzEntry> file = new ArrayList<>();
+    private final ArrayList<ClausewitzEntry> file = new ArrayList<>();
+    private final ArrayList<String> errors = new ArrayList<>();
+
     private boolean reachedFileEnd = false;
     private MapBuilder currentMap;
 
@@ -66,6 +68,12 @@ final class ClausewitzListenerImpl extends ClausewitzBaseListener {
     }
 
     @Override
+    public void visitErrorNode(ErrorNode node) {
+        super.visitErrorNode(node);
+        errors.add(node.getText());
+    }
+
+    @Override
     public void exitFile(FileContext ctx) {
         super.exitFile(ctx);
         reachedFileEnd = true;
@@ -73,6 +81,10 @@ final class ClausewitzListenerImpl extends ClausewitzBaseListener {
 
     public ArrayList<ClausewitzEntry> getFileEntriesList() {
         return new ArrayList<>(file);
+    }
+
+    public ArrayList<String> getErrors() {
+        return errors;
     }
 
     public boolean haveReachedEndOfFile() {

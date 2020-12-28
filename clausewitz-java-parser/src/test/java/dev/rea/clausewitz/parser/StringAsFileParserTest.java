@@ -23,10 +23,12 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
- class StringParserTest {
+class StringAsFileParserTest {
 
     static Stream<Arguments> stringSource() {
         return Stream.of(
@@ -73,7 +75,15 @@ import java.util.stream.Stream;
     void parseString(String text, int count, int depth) {
         Assertions.assertDoesNotThrow(() -> {
             ClausewitzStringFileParser parser = new ClausewitzStringFileParser(text);
-            List<ClausewitzEntry> list = parser.parseAsFile();
+            FileParseResult result = parser.parseAsFile();
+            Optional<ArrayList<ClausewitzEntry>> resOpt = result.getResult();
+
+            List<ClausewitzEntry> list = null;
+            if (resOpt.isPresent()) {
+                list = resOpt.get();
+            } else {
+                Assertions.fail();
+            }
             Assertions.assertEquals(count, list.size());
 
             int maxDepth = 0;

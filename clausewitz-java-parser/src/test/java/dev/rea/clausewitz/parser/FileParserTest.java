@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Optional;
 
 class FileParserTest {
 
@@ -33,15 +34,30 @@ class FileParserTest {
         File file = new File(Objects.requireNonNull(
                 getClass().getClassLoader().getResource("test.txt")).toURI());
         ClausewitzFileParser parser = new ClausewitzFileParser(file);
-        ArrayList<ClausewitzEntry> list = parser.parseAsFile();
+        FileParseResult result = parser.parseAsFile();
+        Optional<ArrayList<ClausewitzEntry>> resOpt = result.getResult();
 
+        Assertions.assertTrue(result.getMessage().isEmpty());
+        ArrayList<ClausewitzEntry> list = null;
+        if (resOpt.isPresent()) {
+            list = resOpt.get();
+        } else {
+            Assertions.fail();
+        }
         Assertions.assertEquals(1, list.size());
         ClausewitzEntry entry = list.get(0);
 
         String entryString = entry.toString();
         ClausewitzStringFileParser stringParser = new ClausewitzStringFileParser(entryString);
-        list = stringParser.parseAsFile();
-
+        result = stringParser.parseAsFile();
+        resOpt = result.getResult();
+        Assertions.assertTrue(result.getMessage().isEmpty());
+        list = null;
+        if (resOpt.isPresent()) {
+            list = resOpt.get();
+        } else {
+            Assertions.fail();
+        }
         Assertions.assertEquals(1, list.size());
         ClausewitzEntry entryFromString = list.get(0);
 
