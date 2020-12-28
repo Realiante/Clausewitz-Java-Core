@@ -19,13 +19,15 @@ package dev.rea.clausewitz.parser;
 import dev.rea.clausewitz.ClausewitzLexer;
 import org.antlr.v4.runtime.CharStreams;
 
-public class ClausewitzStringParser implements ClausewitzBaseParser {
+public class ClausewitzStringFileParser implements ClausewitzBaseFileParser {
 
     private final String string;
 
-    public ClausewitzStringParser(String string) {
+    public ClausewitzStringFileParser(String string) {
         this.string = string;
     }
+
+
 
     @SuppressWarnings("ClassEscapesDefinedScope")
     @Override

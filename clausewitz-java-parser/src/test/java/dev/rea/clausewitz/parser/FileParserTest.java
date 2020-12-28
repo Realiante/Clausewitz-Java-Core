@@ -33,14 +33,14 @@ class FileParserTest {
         File file = new File(Objects.requireNonNull(
                 getClass().getClassLoader().getResource("test.txt")).toURI());
         ClausewitzFileParser parser = new ClausewitzFileParser(file);
-        ArrayList<ClausewitzEntry> list = parser.parse();
+        ArrayList<ClausewitzEntry> list = parser.parseAsFile();
 
         Assertions.assertEquals(1, list.size());
         ClausewitzEntry entry = list.get(0);
 
         String entryString = entry.toString();
-        ClausewitzStringParser stringParser = new ClausewitzStringParser(entryString);
-        list = stringParser.parse();
+        ClausewitzStringFileParser stringParser = new ClausewitzStringFileParser(entryString);
+        list = stringParser.parseAsFile();
 
         Assertions.assertEquals(1, list.size());
         ClausewitzEntry entryFromString = list.get(0);

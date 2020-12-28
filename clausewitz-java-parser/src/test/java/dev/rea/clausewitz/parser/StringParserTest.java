@@ -72,8 +72,8 @@ import java.util.stream.Stream;
     @MethodSource("stringSource")
     void parseString(String text, int count, int depth) {
         Assertions.assertDoesNotThrow(() -> {
-            ClausewitzStringParser parser = new ClausewitzStringParser(text);
-            List<ClausewitzEntry> list = parser.parse();
+            ClausewitzStringFileParser parser = new ClausewitzStringFileParser(text);
+            List<ClausewitzEntry> list = parser.parseAsFile();
             Assertions.assertEquals(count, list.size());
 
             int maxDepth = 0;

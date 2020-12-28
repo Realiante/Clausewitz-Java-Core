@@ -23,7 +23,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-public class ClausewitzFileParser implements ClausewitzBaseParser {
+public class ClausewitzFileParser implements ClausewitzBaseFileParser {
 
     private final File file;
 

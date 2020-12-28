@@ -25,9 +25,9 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import java.io.IOException;
 import java.util.ArrayList;
 
-interface ClausewitzBaseParser {
+interface ClausewitzBaseFileParser {
 
-    default ArrayList<ClausewitzEntry> parse() throws IOException {
+    default ArrayList<ClausewitzEntry> parseAsFile() throws IOException {
         CommonTokenStream tokenStream = new CommonTokenStream(buildLexer());
         ClausewitzParser parser = new ClausewitzParser(tokenStream);
 
