@@ -27,6 +27,8 @@
     </parent>
 
     <artifactId>clausewitz-java-core-plugin</artifactId>
+    <name>Clausewitz-Java Main Plugin</name>
+    <description>Plugin that provides basic functionality</description>
 
     <dependencies>
         <dependency>
