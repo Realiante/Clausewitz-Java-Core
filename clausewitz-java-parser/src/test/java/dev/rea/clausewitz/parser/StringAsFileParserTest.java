@@ -18,6 +18,7 @@ package dev.rea.clausewitz.parser;
 
 import dev.rea.clausewitz.entries.ClausewitzEntry;
 import dev.rea.clausewitz.entries.ClausewitzMapEntry;
+import dev.rea.clausewitz.interfaces.Result;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -75,7 +76,7 @@ class StringAsFileParserTest {
     void parseString(String text, int count, int depth) {
         Assertions.assertDoesNotThrow(() -> {
             ClausewitzStringFileParser parser = new ClausewitzStringFileParser(text);
-            FileParseResult result = parser.parseAsFile();
+            Result<ArrayList<ClausewitzEntry>> result = parser.parseAsFile();
             Optional<ArrayList<ClausewitzEntry>> resOpt = result.getResult();
 
             List<ClausewitzEntry> list = null;

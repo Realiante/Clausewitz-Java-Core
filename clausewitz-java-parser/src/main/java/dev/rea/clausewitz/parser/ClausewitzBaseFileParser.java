@@ -18,14 +18,17 @@ package dev.rea.clausewitz.parser;
 
 import dev.rea.clausewitz.ClausewitzLexer;
 import dev.rea.clausewitz.ClausewitzParser;
+import dev.rea.clausewitz.entries.ClausewitzEntry;
+import dev.rea.clausewitz.interfaces.Result;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 interface ClausewitzBaseFileParser {
 
-    default FileParseResult parseAsFile() throws IOException {
+    default Result<ArrayList<ClausewitzEntry>> parseAsFile() throws IOException {
         CommonTokenStream tokenStream = new CommonTokenStream(buildLexer());
         ClausewitzParser parser = new ClausewitzParser(tokenStream);
 

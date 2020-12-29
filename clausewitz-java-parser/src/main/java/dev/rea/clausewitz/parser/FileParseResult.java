@@ -22,7 +22,7 @@ import dev.rea.clausewitz.interfaces.Result;
 import java.util.ArrayList;
 import java.util.Optional;
 
-public class FileParseResult implements Result<ArrayList<ClausewitzEntry>> {
+class FileParseResult implements Result<ArrayList<ClausewitzEntry>> {
 
     private final String message;
     private final ArrayList<ClausewitzEntry> entriesResult;
