@@ -25,7 +25,8 @@ public enum ValueType {
     DATE(ClausewitzLexer.VOCABULARY.getSymbolicName(ClausewitzLexer.DATE)),
     STRING(ClausewitzLexer.VOCABULARY.getSymbolicName(ClausewitzLexer.STRING)),
     CLAUSE("CLAUSE"),
-    ARRAY("ARRAY");
+    ARRAY("ARRAY"),
+    ERROR("ERR");
 
     private final String typeSymbolic;
 
@@ -45,9 +46,6 @@ public enum ValueType {
     public String getSymbolic() {
         return typeSymbolic;
     }
-
-
-
 
     @Override
     public String toString() {

@@ -19,6 +19,7 @@ package dev.rea.clausewitz.parser.listeners;
 import dev.rea.clausewitz.ClausewitzBaseListener;
 import dev.rea.clausewitz.ClausewitzLexer;
 import dev.rea.clausewitz.ClausewitzParser;
+import dev.rea.clausewitz.ClausewitzParser.ValueContext;
 import dev.rea.clausewitz.parser.ValueType;
 import org.antlr.v4.runtime.CommonToken;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -39,7 +40,15 @@ public abstract class ClausewitzAbstractListener extends ClausewitzBaseListener 
         errors.add(node.getText());
     }
 
-    protected ValueType getValueType(ClausewitzParser.ValueContext context) {
+    protected ValueType getValueTypeOrErr(ValueContext context) {
+        if (context != null && !context.isEmpty() && context.getChildCount() != 0) {
+            return getValueType(context);
+        } else {
+            return ValueType.ERROR;
+        }
+    }
+
+    private ValueType getValueType(ValueContext context) {
         Object payload = context.getChild(0).getPayload();
 
         if (payload instanceof ClausewitzParser.ArrayContext) {

@@ -43,7 +43,7 @@ public final class ClausewitzFileListener extends ClausewitzAbstractListener {
     @Override
     public void enterPair(PairContext ctx) {
         super.enterPair(ctx);
-        if (ctx.value().clause() != null) {
+        if (ctx.value() != null && ctx.value().clause() != null) {
             currentMap = new MapBuilder(currentMap,
                     ctx.STRING().getText(), ctx.VALUE_OPERATOR().getText());
         }
@@ -52,23 +52,25 @@ public final class ClausewitzFileListener extends ClausewitzAbstractListener {
     @Override
     public void exitPair(PairContext ctx) {
         super.exitPair(ctx);
-        ClausewitzParsedEntry entry;
-        ValueType type = getValueType(ctx.value());
+        ClausewitzParsedEntry entry = null;
+        ValueType type = getValueTypeOrErr(ctx.value());
         if (type == ValueType.CLAUSE) {
             MapBuilder parent = currentMap.parent;
             entry = currentMap.build();
             currentMap = parent;
-        } else {
+        } else if (type != ValueType.ERROR) {
             entry = new SingleEntryBuilder(
                     currentMap, ctx.STRING().getText(),
                     ctx.VALUE_OPERATOR().getText(),
                     ctx.value(), type).build();
         }
 
-        if (currentMap == null) {
-            file.add(entry);
-        } else {
-            currentMap.addChild(entry);
+        if (entry != null) {
+            if (currentMap == null) {
+                file.add(entry);
+            } else {
+                currentMap.addChild(entry);
+            }
         }
     }
 

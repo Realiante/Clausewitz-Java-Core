@@ -37,7 +37,7 @@ public final class ClausewitzErrorListener extends ClausewitzAbstractListener {
         super.enterValue(ctx);
 
         if (firstValueType == null) {
-            firstValueType = getValueType(ctx);
+            firstValueType = getValueTypeOrErr(ctx);
         }
     }
 

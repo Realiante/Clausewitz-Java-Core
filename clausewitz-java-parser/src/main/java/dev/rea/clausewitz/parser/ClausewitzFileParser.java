@@ -17,18 +17,17 @@
 package dev.rea.clausewitz.parser;
 
 import dev.rea.clausewitz.ClausewitzLexer;
-import dev.rea.clausewitz.ClausewitzParser;
 import dev.rea.clausewitz.entries.ClausewitzParsedEntry;
 import dev.rea.clausewitz.interfaces.Result;
 import dev.rea.clausewitz.parser.listeners.ClausewitzFileListener;
 import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class ClausewitzFileParser {
 
@@ -45,14 +44,17 @@ public class ClausewitzFileParser {
     }
 
     private static Result<ArrayList<ClausewitzParsedEntry>> walkAndGetResults(ClausewitzLexer lexer) {
-        CommonTokenStream tokenStream = new CommonTokenStream(lexer);
-        ClausewitzParser parser = new ClausewitzParser(tokenStream);
+        var pwe = new ExtendedParser(lexer);
 
         ParseTreeWalker walker = new ParseTreeWalker();
         ClausewitzFileListener listener = new ClausewitzFileListener(lexer);
 
-        walker.walk(listener, parser.file());
-        return new FileParseResult(listener.getErrors(), listener.getFileEntriesList());
+        walker.walk(listener, pwe.getParser().file());
+        ArrayList<String> messages = new ArrayList<>(pwe.getAntlrErrors());
+        messages.addAll(listener.getErrors());
+
+        return new FileParseResult(messages, listener.getFileEntriesList());
+
     }
 
     private static ClausewitzLexer buildLexer(File file) throws IOException {
@@ -62,5 +64,34 @@ public class ClausewitzFileParser {
 
     private static ClausewitzLexer buildLexer(String string) {
         return new ClausewitzLexer(CharStreams.fromString(string));
+    }
+
+    private static class FileParseResult implements Result<ArrayList<ClausewitzParsedEntry>> {
+
+        private final String message;
+        private final ArrayList<ClausewitzParsedEntry> entriesResult;
+
+        public FileParseResult(ArrayList<String> errors, ArrayList<ClausewitzParsedEntry> entriesResult) {
+            String err = null;
+
+            if (!errors.isEmpty()) {
+                StringBuilder stringBuilder = new StringBuilder();
+                errors.forEach((s -> stringBuilder.append(s).append("\n")));
+                err = stringBuilder.toString();
+            }
+
+            this.message = err;
+            this.entriesResult = entriesResult;
+        }
+
+        @Override
+        public Optional<String> getMessage() {
+            return Optional.ofNullable(message);
+        }
+
+        @Override
+        public Optional<ArrayList<ClausewitzParsedEntry>> getResult() {
+            return Optional.of(entriesResult);
+        }
     }
 }
