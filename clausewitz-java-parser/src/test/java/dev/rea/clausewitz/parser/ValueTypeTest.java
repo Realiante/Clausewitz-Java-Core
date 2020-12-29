@@ -22,18 +22,16 @@ import dev.rea.clausewitz.interfaces.Result;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 class ValueTypeTest {
 
     @Test
-    void ValueTypeAssignmentTest() throws IOException {
+    void ValueTypeAssignmentTest() {
         String toParse = "first = 100 \n" + "second = 200%" + "third = {\n" +
                 "childOfThird = {0 0 0}\n " + "}";
 
-        ClausewitzStringFileParser parser = new ClausewitzStringFileParser(toParse);
-        Result<ArrayList<ClausewitzParsedEntry>> result = parser.parseAsFile();
+        Result<ArrayList<ClausewitzParsedEntry>> result = ClausewitzFileParser.parse(toParse);
         Assertions.assertTrue(result.getMessage().isEmpty());
         Assertions.assertTrue(result.getResult().isPresent());
         var entries = result.getResult().get();

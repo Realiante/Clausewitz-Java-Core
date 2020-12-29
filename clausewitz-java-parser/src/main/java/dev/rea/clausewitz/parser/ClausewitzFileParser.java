@@ -17,24 +17,50 @@
 package dev.rea.clausewitz.parser;
 
 import dev.rea.clausewitz.ClausewitzLexer;
+import dev.rea.clausewitz.ClausewitzParser;
+import dev.rea.clausewitz.entries.ClausewitzParsedEntry;
+import dev.rea.clausewitz.interfaces.Result;
+import dev.rea.clausewitz.parser.listeners.ClausewitzFileListener;
 import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
-public class ClausewitzFileParser implements ClausewitzBaseFileParser {
+public class ClausewitzFileParser {
 
-    private final File file;
-
-    public ClausewitzFileParser(File file) {
-        this.file = file;
+    private ClausewitzFileParser() {
+        //static class
     }
 
-    @SuppressWarnings("ClassEscapesDefinedScope")
-    @Override
-    public ClausewitzLexer buildLexer() throws IOException {
+    public static Result<ArrayList<ClausewitzParsedEntry>> parse(File file) throws IOException {
+        return walkAndGetResults(buildLexer(file));
+    }
+
+    public static Result<ArrayList<ClausewitzParsedEntry>> parse(String string) {
+        return walkAndGetResults(buildLexer(string));
+    }
+
+    private static Result<ArrayList<ClausewitzParsedEntry>> walkAndGetResults(ClausewitzLexer lexer) {
+        CommonTokenStream tokenStream = new CommonTokenStream(lexer);
+        ClausewitzParser parser = new ClausewitzParser(tokenStream);
+
+        ParseTreeWalker walker = new ParseTreeWalker();
+        ClausewitzFileListener listener = new ClausewitzFileListener(lexer);
+
+        walker.walk(listener, parser.file());
+        return new FileParseResult(listener.getErrors(), listener.getFileEntriesList());
+    }
+
+    private static ClausewitzLexer buildLexer(File file) throws IOException {
         FileInputStream inputStream = new FileInputStream(file);
         return new ClausewitzLexer(CharStreams.fromStream(inputStream));
+    }
+
+    private static ClausewitzLexer buildLexer(String string) {
+        return new ClausewitzLexer(CharStreams.fromString(string));
     }
 }

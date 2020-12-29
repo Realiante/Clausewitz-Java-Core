@@ -34,8 +34,7 @@ class FileParserTest {
     void parseFile() throws URISyntaxException, IOException {
         File file = new File(Objects.requireNonNull(
                 getClass().getClassLoader().getResource("test.txt")).toURI());
-        ClausewitzFileParser parser = new ClausewitzFileParser(file);
-        Result<ArrayList<ClausewitzParsedEntry>> result = parser.parseAsFile();
+        Result<ArrayList<ClausewitzParsedEntry>> result = ClausewitzFileParser.parse(file);
         Optional<ArrayList<ClausewitzParsedEntry>> resOpt = result.getResult();
 
         Assertions.assertTrue(result.getMessage().isEmpty());
@@ -49,8 +48,7 @@ class FileParserTest {
         ClausewitzParsedEntry entry = list.get(0);
 
         String entryString = entry.toString();
-        ClausewitzStringFileParser stringParser = new ClausewitzStringFileParser(entryString);
-        result = stringParser.parseAsFile();
+        result = ClausewitzFileParser.parse(entryString);
         resOpt = result.getResult();
         Assertions.assertTrue(result.getMessage().isEmpty());
         list = null;

@@ -75,8 +75,7 @@ class StringAsFileParserTest {
     @MethodSource("stringSource")
     void parseString(String text, int count, int depth) {
         Assertions.assertDoesNotThrow(() -> {
-            ClausewitzStringFileParser parser = new ClausewitzStringFileParser(text);
-            Result<ArrayList<ClausewitzParsedEntry>> result = parser.parseAsFile();
+            Result<ArrayList<ClausewitzParsedEntry>> result = ClausewitzFileParser.parse(text);
             Optional<ArrayList<ClausewitzParsedEntry>> resOpt = result.getResult();
 
             List<ClausewitzParsedEntry> list = null;

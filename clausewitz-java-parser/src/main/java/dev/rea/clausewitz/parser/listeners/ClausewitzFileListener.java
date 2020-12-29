@@ -14,36 +14,31 @@
  *    limitations under the License.
  */
 
-package dev.rea.clausewitz.parser;
+package dev.rea.clausewitz.parser.listeners;
 
-import dev.rea.clausewitz.ClausewitzBaseListener;
 import dev.rea.clausewitz.ClausewitzLexer;
-import dev.rea.clausewitz.ClausewitzParser;
-import dev.rea.clausewitz.ClausewitzParser.FileContext;
 import dev.rea.clausewitz.ClausewitzParser.PairContext;
 import dev.rea.clausewitz.entries.ClausewitzMapParsedEntry;
 import dev.rea.clausewitz.entries.ClausewitzParsedEntry;
 import dev.rea.clausewitz.entries.ClausewitzSingleParsedEntry;
-import org.antlr.v4.runtime.CommonToken;
-import org.antlr.v4.runtime.tree.ErrorNode;
+import dev.rea.clausewitz.parser.ValueType;
 
 import java.util.ArrayList;
 
 import static dev.rea.clausewitz.ClausewitzParser.ValueContext;
 
-final class ClausewitzListenerFileImpl extends ClausewitzBaseListener {
-
-    private final ClausewitzLexer lexer;
-
+/**
+ * Listener that will create a list of entries.
+ */
+public final class ClausewitzFileListener extends ClausewitzAbstractListener {
     private final ArrayList<ClausewitzParsedEntry> file = new ArrayList<>();
-    private final ArrayList<String> errors = new ArrayList<>();
 
-    private boolean reachedFileEnd = false;
     private MapBuilder currentMap;
 
-    public ClausewitzListenerFileImpl(ClausewitzLexer lexer) {
-        this.lexer = lexer;
+    public ClausewitzFileListener(ClausewitzLexer lexer) {
+        super(lexer);
     }
+
 
     @Override
     public void enterPair(PairContext ctx) {
@@ -77,43 +72,8 @@ final class ClausewitzListenerFileImpl extends ClausewitzBaseListener {
         }
     }
 
-    private ValueType getValueType(ValueContext context) {
-        Object payload = context.getChild(0).getPayload();
-
-        if (payload instanceof ClausewitzParser.ArrayContext) {
-            return ValueType.ARRAY;
-        } else if (payload instanceof ClausewitzParser.ClauseContext) {
-            return ValueType.CLAUSE;
-        } else {
-            CommonToken token = (CommonToken) payload;
-            int type = token.getType();
-            String symbolic = lexer.getVocabulary().getSymbolicName(type);
-            return ValueType.getBySymbolic(symbolic);
-        }
-    }
-
-    @Override
-    public void visitErrorNode(ErrorNode node) {
-        super.visitErrorNode(node);
-        errors.add(node.getText());
-    }
-
-    @Override
-    public void exitFile(FileContext ctx) {
-        super.exitFile(ctx);
-        reachedFileEnd = true;
-    }
-
     public ArrayList<ClausewitzParsedEntry> getFileEntriesList() {
         return new ArrayList<>(file);
-    }
-
-    public ArrayList<String> getErrors() {
-        return errors;
-    }
-
-    public boolean haveReachedEndOfFile() {
-        return reachedFileEnd;
     }
 
     private abstract class BaseEntryBuilder {
