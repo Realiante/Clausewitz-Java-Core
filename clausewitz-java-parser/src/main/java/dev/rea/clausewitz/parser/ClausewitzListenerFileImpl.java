@@ -17,24 +17,33 @@
 package dev.rea.clausewitz.parser;
 
 import dev.rea.clausewitz.ClausewitzBaseListener;
+import dev.rea.clausewitz.ClausewitzLexer;
+import dev.rea.clausewitz.ClausewitzParser;
 import dev.rea.clausewitz.ClausewitzParser.FileContext;
 import dev.rea.clausewitz.ClausewitzParser.PairContext;
-import dev.rea.clausewitz.entries.ClausewitzEntry;
-import dev.rea.clausewitz.entries.ClausewitzMapEntry;
-import dev.rea.clausewitz.entries.ClausewitzSingleEntry;
+import dev.rea.clausewitz.entries.ClausewitzMapParsedEntry;
+import dev.rea.clausewitz.entries.ClausewitzParsedEntry;
+import dev.rea.clausewitz.entries.ClausewitzSingleParsedEntry;
+import org.antlr.v4.runtime.CommonToken;
 import org.antlr.v4.runtime.tree.ErrorNode;
 
 import java.util.ArrayList;
 
 import static dev.rea.clausewitz.ClausewitzParser.ValueContext;
 
-final class ClausewitzListenerImpl extends ClausewitzBaseListener {
+final class ClausewitzListenerFileImpl extends ClausewitzBaseListener {
 
-    private final ArrayList<ClausewitzEntry> file = new ArrayList<>();
+    private final ClausewitzLexer lexer;
+
+    private final ArrayList<ClausewitzParsedEntry> file = new ArrayList<>();
     private final ArrayList<String> errors = new ArrayList<>();
 
     private boolean reachedFileEnd = false;
     private MapBuilder currentMap;
+
+    public ClausewitzListenerFileImpl(ClausewitzLexer lexer) {
+        this.lexer = lexer;
+    }
 
     @Override
     public void enterPair(PairContext ctx) {
@@ -48,22 +57,38 @@ final class ClausewitzListenerImpl extends ClausewitzBaseListener {
     @Override
     public void exitPair(PairContext ctx) {
         super.exitPair(ctx);
-
-        ClausewitzEntry entry;
-        if (ctx.value().clause() != null) {
+        ClausewitzParsedEntry entry;
+        ValueType type = getValueType(ctx.value());
+        if (type == ValueType.CLAUSE) {
             MapBuilder parent = currentMap.parent;
             entry = currentMap.build();
             currentMap = parent;
         } else {
-            entry = new SingleEntryBuilder(currentMap, ctx.STRING().getText(),
+            entry = new SingleEntryBuilder(
+                    currentMap, ctx.STRING().getText(),
                     ctx.VALUE_OPERATOR().getText(),
-                    ctx.value()).build();
+                    ctx.value(), type).build();
         }
 
         if (currentMap == null) {
             file.add(entry);
         } else {
             currentMap.addChild(entry);
+        }
+    }
+
+    private ValueType getValueType(ValueContext context) {
+        Object payload = context.getChild(0).getPayload();
+
+        if (payload instanceof ClausewitzParser.ArrayContext) {
+            return ValueType.ARRAY;
+        } else if (payload instanceof ClausewitzParser.ClauseContext) {
+            return ValueType.CLAUSE;
+        } else {
+            CommonToken token = (CommonToken) payload;
+            int type = token.getType();
+            String symbolic = lexer.getVocabulary().getSymbolicName(type);
+            return ValueType.getBySymbolic(symbolic);
         }
     }
 
@@ -79,7 +104,7 @@ final class ClausewitzListenerImpl extends ClausewitzBaseListener {
         reachedFileEnd = true;
     }
 
-    public ArrayList<ClausewitzEntry> getFileEntriesList() {
+    public ArrayList<ClausewitzParsedEntry> getFileEntriesList() {
         return new ArrayList<>(file);
     }
 
@@ -102,23 +127,23 @@ final class ClausewitzListenerImpl extends ClausewitzBaseListener {
             this.valueOperator = valueOperator;
         }
 
-        public abstract ClausewitzEntry build();
+        public abstract ClausewitzParsedEntry build();
     }
 
     private class MapBuilder extends BaseEntryBuilder {
-        private final ArrayList<ClausewitzEntry> children = new ArrayList<>();
+        private final ArrayList<ClausewitzParsedEntry> children = new ArrayList<>();
 
         public MapBuilder(MapBuilder parent, String name, String valueOperator) {
             super(parent, name, valueOperator);
         }
 
-        public void addChild(ClausewitzEntry child) {
+        public void addChild(ClausewitzParsedEntry child) {
             children.add(child);
         }
 
         @Override
-        public ClausewitzEntry build() {
-            ClausewitzMapEntry map = new ClausewitzMapEntry(this.name, this.valueOperator);
+        public ClausewitzParsedEntry build() {
+            ClausewitzMapParsedEntry map = new ClausewitzMapParsedEntry(this.name, this.valueOperator);
             map.setChildren(children);
             return map;
         }
@@ -126,15 +151,17 @@ final class ClausewitzListenerImpl extends ClausewitzBaseListener {
 
     private class SingleEntryBuilder extends BaseEntryBuilder {
         private final ValueContext valueContext;
+        private final ValueType valueType;
 
-        public SingleEntryBuilder(MapBuilder parent, String name, String valueOperator, ValueContext context) {
+        public SingleEntryBuilder(MapBuilder parent, String name, String valueOperator, ValueContext context, ValueType valueType) {
             super(parent, name, valueOperator);
             this.valueContext = context;
+            this.valueType = valueType;
         }
 
         @Override
-        public ClausewitzEntry build() {
-            return new ClausewitzSingleEntry(this.name, this.valueOperator, valueContext.getText());
+        public ClausewitzParsedEntry build() {
+            return new ClausewitzSingleParsedEntry(this.name, this.valueOperator, valueContext.getText(), valueType);
         }
     }
 }

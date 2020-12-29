@@ -16,20 +16,22 @@
 
 package dev.rea.clausewitz.entries;
 
+import dev.rea.clausewitz.parser.ValueType;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ClausewitzMapEntry extends ClausewitzEntry {
+public class ClausewitzMapParsedEntry extends ClausewitzParsedEntry {
 
-    private final ArrayList<ClausewitzEntry> entries = new ArrayList<>();
-    private final HashMap<String, ClausewitzEntry> childMap = new HashMap<>();
+    private final ArrayList<ClausewitzParsedEntry> entries = new ArrayList<>();
+    private final HashMap<String, ClausewitzParsedEntry> childMap = new HashMap<>();
 
-    public ClausewitzMapEntry(String name, String valueOperator) {
-        super(name, valueOperator);
+    public ClausewitzMapParsedEntry(String name, String valueOperator) {
+        super(name, valueOperator, ValueType.CLAUSE);
     }
 
-    public ClausewitzMapEntry(ClausewitzMapEntry parent, String name, String valueOperator) {
-        super(parent, name, valueOperator);
+    public ClausewitzMapParsedEntry(ClausewitzMapParsedEntry parent, String name, String valueOperator) {
+        super(parent, name, valueOperator, ValueType.CLAUSE);
     }
 
     @Override
@@ -37,21 +39,21 @@ public class ClausewitzMapEntry extends ClausewitzEntry {
         return String.format("{%n%s%s}", new EntryStringBuilder(entries).build(), spacePrefix(this));
     }
 
-    public void addChild(ClausewitzEntry entry) {
+    public void addChild(ClausewitzParsedEntry entry) {
         childMap.put(entry.name, entry);
         entries.add(entry);
         entry.setParent(this);
     }
 
-    public ClausewitzEntry getChild(String name) {
+    public ClausewitzParsedEntry getChild(String name) {
         return childMap.get(name);
     }
 
-    public ArrayList<ClausewitzEntry> getChildren() {
+    public ArrayList<ClausewitzParsedEntry> getChildren() {
         return new ArrayList<>(entries);
     }
 
-    public void setChildren(ArrayList<ClausewitzEntry> children) {
+    public void setChildren(ArrayList<ClausewitzParsedEntry> children) {
         entries.clear();
         childMap.clear();
 
@@ -60,14 +62,14 @@ public class ClausewitzMapEntry extends ClausewitzEntry {
         }
     }
 
-    private String spacePrefix(ClausewitzEntry entry) {
+    private String spacePrefix(ClausewitzParsedEntry entry) {
         return "\t".repeat(entry.getDepth());
     }
 
     private class EntryStringBuilder {
-        final ArrayList<ClausewitzEntry> entries;
+        final ArrayList<ClausewitzParsedEntry> entries;
 
-        EntryStringBuilder(ArrayList<ClausewitzEntry> entries) {
+        EntryStringBuilder(ArrayList<ClausewitzParsedEntry> entries) {
             this.entries = entries;
         }
 

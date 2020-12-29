@@ -1,3 +1,3 @@
 module clausewitz.java.core.plugin {
-    requires clausewitz.java.core;
+    requires transitive clausewitz.java.core;
 }

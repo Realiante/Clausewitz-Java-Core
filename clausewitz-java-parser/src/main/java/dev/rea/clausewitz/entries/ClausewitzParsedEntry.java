@@ -16,30 +16,34 @@
 
 package dev.rea.clausewitz.entries;
 
+import dev.rea.clausewitz.parser.ValueType;
+
 import java.util.Optional;
 
-public abstract class ClausewitzEntry {
+public abstract class ClausewitzParsedEntry {
 
     public final String valueOperator;
     public final String name;
+    public final ValueType valueType;
 
-    private ClausewitzMapEntry parent;
+    private ClausewitzMapParsedEntry parent;
 
-    protected ClausewitzEntry(String name, String valueOperator) {
+    protected ClausewitzParsedEntry(String name, String valueOperator, ValueType valueType) {
         this.name = name;
         this.valueOperator = valueOperator;
+        this.valueType = valueType;
     }
 
-    protected ClausewitzEntry(ClausewitzMapEntry parent, String name, String valueOperator) {
-        this(name, valueOperator);
+    protected ClausewitzParsedEntry(ClausewitzMapParsedEntry parent, String name, String valueOperator, ValueType valueType) {
+        this(name, valueOperator, valueType);
         setParent(parent);
     }
 
-    public Optional<ClausewitzMapEntry> getParent() {
+    public Optional<ClausewitzMapParsedEntry> getParent() {
         return Optional.ofNullable(parent);
     }
 
-    public void setParent(ClausewitzMapEntry parent) {
+    public void setParent(ClausewitzMapParsedEntry parent) {
         this.parent = parent;
     }
 
@@ -51,7 +55,7 @@ public abstract class ClausewitzEntry {
 
     public int getDepth() {
         int depth = 0;
-        ClausewitzEntry temp = parent;
+        ClausewitzParsedEntry temp = parent;
         while (temp != null) {
             temp = temp.parent;
             depth++;

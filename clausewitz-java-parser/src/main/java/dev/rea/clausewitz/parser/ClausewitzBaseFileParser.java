@@ -18,7 +18,7 @@ package dev.rea.clausewitz.parser;
 
 import dev.rea.clausewitz.ClausewitzLexer;
 import dev.rea.clausewitz.ClausewitzParser;
-import dev.rea.clausewitz.entries.ClausewitzEntry;
+import dev.rea.clausewitz.entries.ClausewitzParsedEntry;
 import dev.rea.clausewitz.interfaces.Result;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
@@ -28,12 +28,14 @@ import java.util.ArrayList;
 
 interface ClausewitzBaseFileParser {
 
-    default Result<ArrayList<ClausewitzEntry>> parseAsFile() throws IOException {
-        CommonTokenStream tokenStream = new CommonTokenStream(buildLexer());
+    default Result<ArrayList<ClausewitzParsedEntry>> parseAsFile() throws IOException {
+        ClausewitzLexer lexer = buildLexer();
+
+        CommonTokenStream tokenStream = new CommonTokenStream(lexer);
         ClausewitzParser parser = new ClausewitzParser(tokenStream);
 
         ParseTreeWalker walker = new ParseTreeWalker();
-        ClausewitzListenerImpl listener = new ClausewitzListenerImpl();
+        ClausewitzListenerFileImpl listener = new ClausewitzListenerFileImpl(lexer);
 
         walker.walk(listener, parser.file());
         return new FileParseResult(listener.getErrors(), listener.getFileEntriesList());

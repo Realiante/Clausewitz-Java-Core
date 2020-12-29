@@ -16,17 +16,19 @@
 
 package dev.rea.clausewitz.entries;
 
-public class ClausewitzSingleEntry extends ClausewitzEntry {
+import dev.rea.clausewitz.parser.ValueType;
+
+public class ClausewitzSingleParsedEntry extends ClausewitzParsedEntry {
 
     private final String entry;
 
-    public ClausewitzSingleEntry(ClausewitzMapEntry parent, String name, String valueOperator, String entry) {
-        super(parent, name, valueOperator);
+    public ClausewitzSingleParsedEntry(ClausewitzMapParsedEntry parent, String name, String valueOperator, String entry, ValueType valueType) {
+        super(parent, name, valueOperator, valueType);
         this.entry = entry;
     }
 
-    public ClausewitzSingleEntry(String name, String valueOperator, String entry) {
-        super(name, valueOperator);
+    public ClausewitzSingleParsedEntry(String name, String valueOperator, String entry, ValueType valueType) {
+        super(name, valueOperator, valueType);
         this.entry = entry;
     }
 

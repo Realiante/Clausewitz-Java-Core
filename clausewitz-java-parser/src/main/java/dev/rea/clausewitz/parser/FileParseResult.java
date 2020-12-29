@@ -16,18 +16,18 @@
 
 package dev.rea.clausewitz.parser;
 
-import dev.rea.clausewitz.entries.ClausewitzEntry;
+import dev.rea.clausewitz.entries.ClausewitzParsedEntry;
 import dev.rea.clausewitz.interfaces.Result;
 
 import java.util.ArrayList;
 import java.util.Optional;
 
-class FileParseResult implements Result<ArrayList<ClausewitzEntry>> {
+class FileParseResult implements Result<ArrayList<ClausewitzParsedEntry>> {
 
     private final String message;
-    private final ArrayList<ClausewitzEntry> entriesResult;
+    private final ArrayList<ClausewitzParsedEntry> entriesResult;
 
-    public FileParseResult(ArrayList<String> errors, ArrayList<ClausewitzEntry> entriesResult) {
+    public FileParseResult(ArrayList<String> errors, ArrayList<ClausewitzParsedEntry> entriesResult) {
         String err = null;
         if (!errors.isEmpty()) {
             StringBuilder stringBuilder = new StringBuilder();
@@ -45,7 +45,7 @@ class FileParseResult implements Result<ArrayList<ClausewitzEntry>> {
     }
 
     @Override
-    public Optional<ArrayList<ClausewitzEntry>> getResult() {
+    public Optional<ArrayList<ClausewitzParsedEntry>> getResult() {
         return Optional.of(entriesResult);
     }
 }
