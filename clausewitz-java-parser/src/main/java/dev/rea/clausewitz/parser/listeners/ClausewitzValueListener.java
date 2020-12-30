@@ -18,7 +18,7 @@ package dev.rea.clausewitz.parser.listeners;
 
 import dev.rea.clausewitz.ClausewitzLexer;
 import dev.rea.clausewitz.ClausewitzParser.ValueContext;
-import dev.rea.clausewitz.parser.ValueType;
+import dev.rea.clausewitz.interfaces.val.ValueType;
 
 /**
  * Listener that will only assign a type to a first encountered value.

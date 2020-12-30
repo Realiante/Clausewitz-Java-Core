@@ -21,7 +21,7 @@ import dev.rea.clausewitz.ClausewitzParser.PairContext;
 import dev.rea.clausewitz.entries.ClausewitzMapParsedEntry;
 import dev.rea.clausewitz.entries.ClausewitzParsedEntry;
 import dev.rea.clausewitz.entries.ClausewitzSingleParsedEntry;
-import dev.rea.clausewitz.parser.ValueType;
+import dev.rea.clausewitz.interfaces.val.ValueType;
 
 import java.util.ArrayList;
 

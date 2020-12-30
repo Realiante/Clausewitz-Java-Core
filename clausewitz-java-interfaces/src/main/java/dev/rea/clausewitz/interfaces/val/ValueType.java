@@ -14,16 +14,14 @@
  *    limitations under the License.
  */
 
-package dev.rea.clausewitz.parser;
-
-import dev.rea.clausewitz.ClausewitzLexer;
+package dev.rea.clausewitz.interfaces.val;
 
 public enum ValueType {
-    INT(ClausewitzLexer.VOCABULARY.getSymbolicName(ClausewitzLexer.INT)),
-    PERCENT(ClausewitzLexer.VOCABULARY.getSymbolicName(ClausewitzLexer.PERCENT)),
-    FLOAT(ClausewitzLexer.VOCABULARY.getSymbolicName(ClausewitzLexer.FLOAT)),
-    DATE(ClausewitzLexer.VOCABULARY.getSymbolicName(ClausewitzLexer.DATE)),
-    STRING(ClausewitzLexer.VOCABULARY.getSymbolicName(ClausewitzLexer.STRING)),
+    INT("INTEGER"),
+    PERCENT("PERCENT"),
+    FLOAT("FLOAT"),
+    DATE("DATE"),
+    STRING("STRING"),
     CLAUSE("CLAUSE"),
     ARRAY("ARRAY"),
     ERROR("ERR");

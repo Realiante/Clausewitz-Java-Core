@@ -21,7 +21,7 @@ import dev.rea.clausewitz.ClausewitzLexer;
 import dev.rea.clausewitz.ClausewitzParser;
 import dev.rea.clausewitz.ClausewitzParser.PairContext;
 import dev.rea.clausewitz.ClausewitzParser.ValueContext;
-import dev.rea.clausewitz.parser.ValueType;
+import dev.rea.clausewitz.interfaces.val.ValueType;
 import org.antlr.v4.runtime.CommonToken;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;

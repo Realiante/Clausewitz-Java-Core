@@ -18,6 +18,7 @@ package dev.rea.clausewitz.parser;
 
 import dev.rea.clausewitz.ClausewitzLexer;
 import dev.rea.clausewitz.interfaces.Result;
+import dev.rea.clausewitz.interfaces.val.ValueType;
 import dev.rea.clausewitz.parser.listeners.ClausewitzValueListener;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;

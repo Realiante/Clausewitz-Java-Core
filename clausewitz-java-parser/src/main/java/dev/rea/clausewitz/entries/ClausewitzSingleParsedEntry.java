@@ -16,7 +16,7 @@
 
 package dev.rea.clausewitz.entries;
 
-import dev.rea.clausewitz.parser.ValueType;
+import dev.rea.clausewitz.interfaces.val.ValueType;
 
 public class ClausewitzSingleParsedEntry extends ClausewitzParsedEntry {
 

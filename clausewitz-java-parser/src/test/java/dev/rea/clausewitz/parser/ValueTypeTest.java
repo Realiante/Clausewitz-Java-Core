@@ -19,6 +19,7 @@ package dev.rea.clausewitz.parser;
 import dev.rea.clausewitz.entries.ClausewitzMapParsedEntry;
 import dev.rea.clausewitz.entries.ClausewitzParsedEntry;
 import dev.rea.clausewitz.interfaces.Result;
+import dev.rea.clausewitz.interfaces.val.ValueType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
