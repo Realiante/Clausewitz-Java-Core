@@ -32,10 +32,6 @@ public class ClausewitzSingleParsedEntry extends ClausewitzParsedEntry {
         this.entry = entry;
     }
 
-    public String getEntry() {
-        return entry;
-    }
-
     @Override
     public String valueToString() {
         return entry;
