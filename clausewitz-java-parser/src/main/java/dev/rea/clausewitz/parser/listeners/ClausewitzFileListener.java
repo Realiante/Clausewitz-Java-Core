@@ -53,7 +53,7 @@ public final class ClausewitzFileListener extends ClausewitzAbstractListener {
     public void exitPair(PairContext ctx) {
         super.exitPair(ctx);
         ClausewitzParsedEntry entry = null;
-        ValueType type = getValueTypeOrErr(ctx.value());
+        ValueType type = getValueType(ctx);
         if (type == ValueType.CLAUSE) {
             MapBuilder parent = currentMap.parent;
             entry = currentMap.build();

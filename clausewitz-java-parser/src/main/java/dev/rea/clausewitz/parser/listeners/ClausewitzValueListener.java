@@ -24,20 +24,19 @@ import dev.rea.clausewitz.parser.ValueType;
  * Listener that will only assign a type to a first encountered value.
  * Meant as an error checker.
  */
-public final class ClausewitzErrorListener extends ClausewitzAbstractListener {
+public final class ClausewitzValueListener extends ClausewitzAbstractListener {
 
     private ValueType firstValueType;
 
-    public ClausewitzErrorListener(ClausewitzLexer lexer) {
+    public ClausewitzValueListener(ClausewitzLexer lexer) {
         super(lexer);
     }
 
     @Override
     public void enterValue(ValueContext ctx) {
         super.enterValue(ctx);
-
         if (firstValueType == null) {
-            firstValueType = getValueTypeOrErr(ctx);
+            firstValueType = getValueType(ctx);
         }
     }
 

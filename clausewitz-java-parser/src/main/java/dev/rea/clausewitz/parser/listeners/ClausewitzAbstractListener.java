@@ -19,9 +19,11 @@ package dev.rea.clausewitz.parser.listeners;
 import dev.rea.clausewitz.ClausewitzBaseListener;
 import dev.rea.clausewitz.ClausewitzLexer;
 import dev.rea.clausewitz.ClausewitzParser;
+import dev.rea.clausewitz.ClausewitzParser.PairContext;
 import dev.rea.clausewitz.ClausewitzParser.ValueContext;
 import dev.rea.clausewitz.parser.ValueType;
 import org.antlr.v4.runtime.CommonToken;
+import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 
 import java.util.ArrayList;
@@ -30,37 +32,67 @@ public abstract class ClausewitzAbstractListener extends ClausewitzBaseListener 
     private final ClausewitzLexer lexer;
     private final ArrayList<String> errors = new ArrayList<>();
 
+    private ParserRuleContext lastVisited;
+    private String lastErrPairText;
+
     protected ClausewitzAbstractListener(ClausewitzLexer lexer) {
         this.lexer = lexer;
     }
 
     @Override
-    public void visitErrorNode(ErrorNode node) {
-        super.visitErrorNode(node);
-        errors.add(node.getText());
+    public void enterEveryRule(ParserRuleContext ctx) {
+        lastVisited = ctx;
     }
 
-    protected ValueType getValueTypeOrErr(ValueContext context) {
-        if (context != null && !context.isEmpty() && context.getChildCount() != 0) {
-            return getValueType(context);
+    @Override
+    public void visitErrorNode(ErrorNode node) {
+        super.visitErrorNode(node);
+        String lastVisitedText = lastVisited.getText();
+        String errorText = node.getText();
+
+        String error;
+        if (lastErrPairText != null) {
+            error = String.format("Error caused by input: %s%n%s after %s", lastErrPairText, errorText, lastVisitedText);
+            lastErrPairText = null;
         } else {
+            error = String.format("Error caused by input: %s %s", lastVisitedText, errorText);
+        }
+
+        errors.add(error);
+    }
+
+    /**
+     * This will extract a value type from a context if one is present
+     *
+     * @param context Pair context to extract value type from
+     * @return value type
+     */
+    protected ValueType getValueType(PairContext context) {
+        ValueContext valueContext = context.value();
+        if (valueContext != null && !valueContext.isEmpty()) {
+            return getValueType(valueContext);
+        } else {
+            lastErrPairText = context.getText();
             return ValueType.ERROR;
         }
     }
 
-    private ValueType getValueType(ValueContext context) {
-        Object payload = context.getChild(0).getPayload();
+    protected ValueType getValueType(ValueContext context) {
+        if (context.getChildCount() != 0) {
+            Object payload = context.getChild(0).getPayload();
 
-        if (payload instanceof ClausewitzParser.ArrayContext) {
-            return ValueType.ARRAY;
-        } else if (payload instanceof ClausewitzParser.ClauseContext) {
-            return ValueType.CLAUSE;
-        } else {
-            CommonToken token = (CommonToken) payload;
-            int type = token.getType();
-            String symbolic = lexer.getVocabulary().getSymbolicName(type);
-            return ValueType.getBySymbolic(symbolic);
+            if (payload instanceof ClausewitzParser.ArrayContext) {
+                return ValueType.ARRAY;
+            } else if (payload instanceof ClausewitzParser.ClauseContext) {
+                return ValueType.CLAUSE;
+            } else {
+                CommonToken token = (CommonToken) payload;
+                int type = token.getType();
+                String symbolic = lexer.getVocabulary().getSymbolicName(type);
+                return ValueType.getBySymbolic(symbolic);
+            }
         }
+        return ValueType.ERROR;
     }
 
     public ArrayList<String> getErrors() {
