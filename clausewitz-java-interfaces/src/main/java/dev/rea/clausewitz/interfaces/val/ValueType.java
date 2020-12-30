@@ -17,7 +17,7 @@
 package dev.rea.clausewitz.interfaces.val;
 
 public enum ValueType {
-    INT("INTEGER"),
+    INT("INT"),
     PERCENT("PERCENT"),
     FLOAT("FLOAT"),
     DATE("DATE"),
