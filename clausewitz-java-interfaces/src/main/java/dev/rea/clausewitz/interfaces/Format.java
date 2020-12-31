@@ -16,12 +16,10 @@
 
 package dev.rea.clausewitz.interfaces;
 
-public interface StringFormat<T> {
+public interface Format<T> {
 
-    T parse(String string);
+    Result<T> parse(String string);
 
     Result<Boolean> matchesFormat(String string);
-
-    Class<T> getFormatClass();
 
 }
