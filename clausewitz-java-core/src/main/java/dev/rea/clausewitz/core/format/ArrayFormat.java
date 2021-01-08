@@ -18,15 +18,17 @@ package dev.rea.clausewitz.core.format;
 
 import dev.rea.clausewitz.interfaces.val.ValueType;
 
-public class FloatFormat extends AbstractValueFormat<Float> {
+import java.util.ArrayList;
 
+public class ArrayFormat extends AbstractValueFormat<ArrayList<Object>>{
     @Override
-    protected Float buildObject(String string) {
-        return Float.parseFloat(string);
+    protected ArrayList<Object> buildObject(String string) {
+        //TODO: When arrays are added
+        return null;
     }
 
     @Override
     public ValueType getValueType() {
-        return ValueType.FLOAT;
+        return ValueType.ARRAY;
     }
 }

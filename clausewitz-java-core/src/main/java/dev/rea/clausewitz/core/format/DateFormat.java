@@ -16,5 +16,18 @@
 
 package dev.rea.clausewitz.core.format;
 
-public class DateFormat {
+import dev.rea.clausewitz.core.types.ClausewitzDate;
+import dev.rea.clausewitz.interfaces.val.ValueType;
+
+public class DateFormat extends AbstractValueFormat<ClausewitzDate> {
+
+    @Override
+    protected ClausewitzDate buildObject(String string) {
+        return ClausewitzDate.parseDate(string);
+    }
+
+    @Override
+    public ValueType getValueType() {
+        return ValueType.DATE;
+    }
 }

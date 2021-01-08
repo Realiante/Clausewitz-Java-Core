@@ -16,5 +16,19 @@
 
 package dev.rea.clausewitz.core.format;
 
-public class ClauseFormat {
+import dev.rea.clausewitz.interfaces.ClausewitzClause;
+import dev.rea.clausewitz.interfaces.val.ValueType;
+
+public class ClauseFormat extends AbstractValueFormat<ClausewitzClause> {
+
+    @Override
+    protected ClausewitzClause buildObject(String string) {
+        //TODO: When clause factory is in
+        return null;
+    }
+
+    @Override
+    public ValueType getValueType() {
+        return ValueType.CLAUSE;
+    }
 }

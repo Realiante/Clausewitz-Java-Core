@@ -16,5 +16,17 @@
 
 package dev.rea.clausewitz.core.format;
 
-public class StringFormat {
+import dev.rea.clausewitz.interfaces.val.ValueType;
+
+public class StringFormat extends AbstractValueFormat<String> {
+
+    @Override
+    protected String buildObject(String string) {
+        return string;
+    }
+
+    @Override
+    public ValueType getValueType() {
+        return ValueType.STRING;
+    }
 }
