@@ -20,6 +20,7 @@ import dev.rea.clausewitz.interfaces.ClausewitzEntry;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public final class Clause {
@@ -28,6 +29,10 @@ public final class Clause {
 
     public Clause() {
 
+    }
+
+    public Clause(Set<ClausewitzEntry> entries) {
+        this.entries.addAll(entries);
     }
 
     public Clause(ClausewitzEntry... entries) {
@@ -49,4 +54,16 @@ public final class Clause {
         return null;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Clause clause = (Clause) o;
+        return entries.equals(clause.entries);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(entries);
+    }
 }

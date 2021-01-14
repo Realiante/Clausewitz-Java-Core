@@ -16,10 +16,19 @@
 
 package dev.rea.clausewitz.interfaces.val;
 
+import java.util.Objects;
+
 public final class Value {
 
     private Object object;
     private ValueType type;
+
+    public Value() {
+    }
+
+    public Value(Object object) {
+        setValue(object);
+    }
 
     public Object getValue() {
         return object;
@@ -36,5 +45,18 @@ public final class Value {
 
     public ValueType getType() {
         return type;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Value value = (Value) o;
+        return Objects.equals(object, value.object) && type == value.type;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(object, type);
     }
 }
