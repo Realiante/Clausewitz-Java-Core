@@ -14,9 +14,8 @@
  *    limitations under the License.
  */
 
-package dev.rea.clausewitz.core.types;
+package dev.rea.clausewitz.interfaces.val;
 
-import dev.rea.clausewitz.interfaces.val.ClausewitzDate;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -24,20 +23,19 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
-class CDateTest {
+class CPercentTest {
 
-    static Stream<Arguments> parseStringTestSource() {
+    static Stream<Arguments> parseTestSource() {
         return Stream.of(
-                Arguments.of("2.13.24.2", new ClausewitzDate(2, 13, 24, 2)),
-                Arguments.of("3.3.3", new ClausewitzDate(3, 3, 3)),
-                Arguments.of("1.2.3.4.5.6.7.8.9", new ClausewitzDate(1, 2, 3, 4, 5, 6, 7, 8, 9)),
-                Arguments.of("2.11.12452", new ClausewitzDate(2, 11, 12452))
+                Arguments.of("1%", new ClausewitzPercent(1)),
+                Arguments.of("2%", new ClausewitzPercent(2)),
+                Arguments.of("155%", new ClausewitzPercent(155))
         );
     }
 
     @ParameterizedTest
-    @MethodSource("parseStringTestSource")
-    void parseTest(String string, ClausewitzDate expected) {
-        Assertions.assertEquals(expected, ClausewitzDate.parseDate(string));
+    @MethodSource("parseTestSource")
+    void parseTest(String string, ClausewitzPercent expected) {
+        Assertions.assertEquals(expected, ClausewitzPercent.parsePercent(string));
     }
 }
