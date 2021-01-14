@@ -16,20 +16,24 @@
 
 package dev.rea.clausewitz.interfaces.val;
 
+import java.util.List;
+
+@SuppressWarnings("rawtypes") //Rawtypes are only used in one method, should be safe to suppress
 public enum ValueType {
-    INT("INT"),
-    PERCENT("PERCENT"),
-    FLOAT("FLOAT"),
-    DATE("DATE"),
-    STRING("STRING"),
-    CLAUSE("CLAUSE"),
-    ARRAY("ARRAY"),
-    ERROR("ERR");
+    INT("INT", Integer.class),
+    PERCENT("PERCENT", ClausewitzPercent.class),
+    FLOAT("FLOAT", Float.class),
+    DATE("DATE", ClausewitzDate.class),
+    STRING("STRING", String.class),
+    CLAUSE("CLAUSE", Clause.class),
+    ARRAY("ARRAY", List.class);
 
     private final String typeSymbolic;
+    private final Class typeClass;
 
-    ValueType(String typeSymbolic) {
+    ValueType(String typeSymbolic, Class typeClass) {
         this.typeSymbolic = typeSymbolic;
+        this.typeClass = typeClass;
     }
 
     public static ValueType getBySymbolic(String symbolic) {
@@ -39,6 +43,15 @@ public enum ValueType {
             }
         }
         throw new IllegalArgumentException("No ValueType with " + symbolic + " symbolic name exists!");
+    }
+
+    public static ValueType getType(Object object) {
+        for (var type : values()) {
+            if (type.typeClass.isInstance(object)) {
+                return type;
+            }
+        }
+        return null;
     }
 
     public String getSymbolic() {

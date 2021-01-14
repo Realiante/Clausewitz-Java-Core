@@ -14,11 +14,20 @@
  *    limitations under the License.
  */
 
-package dev.rea.clausewitz.core.format;
+package dev.rea.clausewitz.parser.entries.builders;
 
-import dev.rea.clausewitz.interfaces.Format;
+import dev.rea.clausewitz.parser.entries.ParsedEntry;
 
-public abstract class AbstractFormat<T> implements Format<T> {
+abstract class BaseEntryBuilder {
+    public final ClauseEntryBuilder parent;
+    public final String name;
+    public final String valueOperator;
 
+    protected BaseEntryBuilder(ClauseEntryBuilder parent, String name, String valueOperator) {
+        this.parent = parent;
+        this.name = name;
+        this.valueOperator = valueOperator;
+    }
 
+    public abstract ParsedEntry build();
 }

@@ -16,10 +16,10 @@
 
 package dev.rea.clausewitz.parser;
 
-import dev.rea.clausewitz.entries.ClausewitzMapParsedEntry;
-import dev.rea.clausewitz.entries.ClausewitzParsedEntry;
 import dev.rea.clausewitz.interfaces.Result;
 import dev.rea.clausewitz.interfaces.val.ValueType;
+import dev.rea.clausewitz.parser.entries.ClauseParsedEntry;
+import dev.rea.clausewitz.parser.entries.ParsedEntry;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -32,7 +32,7 @@ class ValueTypeTest {
         String toParse = "first = 100 \n" + "second = 200%" + "third = {\n" +
                 "childOfThird = {0 0 0}\n " + "}";
 
-        Result<ArrayList<ClausewitzParsedEntry>> result = ClausewitzFileParser.parse(toParse);
+        Result<ArrayList<ParsedEntry>> result = ClausewitzFileParser.parse(toParse);
         Assertions.assertTrue(result.getMessage().isEmpty());
         Assertions.assertTrue(result.getResult().isPresent());
         var entries = result.getResult().get();
@@ -41,7 +41,7 @@ class ValueTypeTest {
         Assertions.assertSame(ValueType.PERCENT, entries.get(1).valueType);
         Assertions.assertSame(ValueType.CLAUSE, entries.get(2).valueType);
 
-        ClausewitzMapParsedEntry map = (ClausewitzMapParsedEntry) entries.get(2);
+        ClauseParsedEntry map = (ClauseParsedEntry) entries.get(2);
         Assertions.assertEquals(1, map.getChildren().size());
         Assertions.assertSame(ValueType.ARRAY, map.getChild("childOfThird").valueType);
     }

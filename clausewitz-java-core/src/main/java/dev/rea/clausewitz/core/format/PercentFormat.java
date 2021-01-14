@@ -16,7 +16,7 @@
 
 package dev.rea.clausewitz.core.format;
 
-import dev.rea.clausewitz.core.types.ClausewitzPercent;
+import dev.rea.clausewitz.interfaces.val.ClausewitzPercent;
 import dev.rea.clausewitz.interfaces.val.ValueType;
 
 public class PercentFormat extends AbstractValueFormat<ClausewitzPercent> {

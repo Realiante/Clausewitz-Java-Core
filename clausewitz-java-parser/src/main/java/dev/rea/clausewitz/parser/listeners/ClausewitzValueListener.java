@@ -38,6 +38,8 @@ public final class ClausewitzValueListener extends ClausewitzAbstractListener {
         if (firstValueType == null) {
             firstValueType = getValueType(ctx);
         }
+
+
     }
 
     public ValueType getFirstValueType() {

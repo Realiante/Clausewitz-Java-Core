@@ -14,20 +14,20 @@
  *    limitations under the License.
  */
 
-package dev.rea.clausewitz.entries;
+package dev.rea.clausewitz.parser.entries;
 
 import dev.rea.clausewitz.interfaces.val.ValueType;
 
-public class ClausewitzSingleParsedEntry extends ClausewitzParsedEntry {
+public class SingleParsedEntry extends ParsedEntry {
 
     private final String entry;
 
-    public ClausewitzSingleParsedEntry(ClausewitzMapParsedEntry parent, String name, String valueOperator, String entry, ValueType valueType) {
+    public SingleParsedEntry(ClauseParsedEntry parent, String name, String valueOperator, String entry, ValueType valueType) {
         super(parent, name, valueOperator, valueType);
         this.entry = entry;
     }
 
-    public ClausewitzSingleParsedEntry(String name, String valueOperator, String entry, ValueType valueType) {
+    public SingleParsedEntry(String name, String valueOperator, String entry, ValueType valueType) {
         super(name, valueOperator, valueType);
         this.entry = entry;
     }

@@ -29,7 +29,7 @@ class ValueErrorsTest {
     static Stream<Arguments> valueStringSource() {
         return Stream.of(
                 Arguments.of("1string", false, ValueType.INT), //string part will be ignored, no err
-                Arguments.of("\"notClosed", true, ValueType.ERROR), //token recognition err
+                Arguments.of("\"notClosed", true, null), //token recognition error
                 Arguments.of("{ notClosed = string", true, ValueType.CLAUSE), // clause recognized, not closed
                 Arguments.of("normal", false, ValueType.STRING) // normal, control result
         );
@@ -39,8 +39,13 @@ class ValueErrorsTest {
     @MethodSource("valueStringSource")
     void errorTest(String string, boolean expectingErrors, ValueType expectedType) {
         var result = ClausewitzValueParser.parse(string);
-        Assertions.assertTrue(result.getResult().isPresent());
-        Assertions.assertSame(expectedType, result.getResult().get());
+        if (expectedType != null) {
+            Assertions.assertTrue(result.getResult().isPresent());
+            Assertions.assertSame(expectedType, result.getResult().get());
+        } else {
+            Assertions.assertTrue(result.getResult().isEmpty());
+        }
+
         Assertions.assertEquals(expectingErrors, result.getMessage().isPresent());
 
         if (result.getMessage().isPresent()) {

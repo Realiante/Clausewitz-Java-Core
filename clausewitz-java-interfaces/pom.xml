@@ -31,4 +31,12 @@
     <name>Clausewitz-Java Interfaces</name>
     <description>Interfaces that allow efficient map object building</description>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
 </project>

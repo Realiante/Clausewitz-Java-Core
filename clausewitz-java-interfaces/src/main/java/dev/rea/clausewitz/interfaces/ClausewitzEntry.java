@@ -16,16 +16,18 @@
 
 package dev.rea.clausewitz.interfaces;
 
+import dev.rea.clausewitz.interfaces.val.Value;
+
 public interface ClausewitzEntry {
 
     ClausewitzEntry getParent();
+
+    Value getValue();
 
     void setName();
 
     String getName();
 
     String getOperatorAsText();
-
-    String getValueAsText();
 
 }

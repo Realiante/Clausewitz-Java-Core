@@ -16,7 +16,7 @@
 
 package dev.rea.clausewitz.core.format;
 
-import dev.rea.clausewitz.core.types.ClausewitzDate;
+import dev.rea.clausewitz.interfaces.val.ClausewitzDate;
 import dev.rea.clausewitz.interfaces.val.ValueType;
 
 public class DateFormat extends AbstractValueFormat<ClausewitzDate> {

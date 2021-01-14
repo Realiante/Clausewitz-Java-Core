@@ -33,7 +33,6 @@ public abstract class AbstractValueFormat<T> implements Format<T> {
         Result<Boolean> matchResultOpt = matchesFormat(string);
 
         //ignoring isPresent since, boolean result is non-nullable.
-        //
         boolean matchResult = matchResultOpt.getResult().get();
         var matchError = matchResultOpt.getMessage();
 

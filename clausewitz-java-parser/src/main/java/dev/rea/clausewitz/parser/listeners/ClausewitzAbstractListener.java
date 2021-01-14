@@ -73,7 +73,7 @@ public abstract class ClausewitzAbstractListener extends ClausewitzBaseListener 
             return getValueType(valueContext);
         } else {
             lastErrPairText = context.getText();
-            return ValueType.ERROR;
+            return null;
         }
     }
 
@@ -92,7 +92,7 @@ public abstract class ClausewitzAbstractListener extends ClausewitzBaseListener 
                 return ValueType.getBySymbolic(symbolic);
             }
         }
-        return ValueType.ERROR;
+        return null;
     }
 
     public ArrayList<String> getErrors() {

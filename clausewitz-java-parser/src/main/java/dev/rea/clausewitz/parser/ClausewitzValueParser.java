@@ -71,7 +71,7 @@ public class ClausewitzValueParser {
 
         @Override
         public Optional<ValueType> getResult() {
-            return Optional.of(result);
+            return Optional.ofNullable(result);
         }
     }
 }

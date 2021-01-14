@@ -14,12 +14,12 @@
  *    limitations under the License.
  */
 
-package dev.rea.clausewitz.core.types;
+package dev.rea.clausewitz.interfaces.val;
 
 import java.util.Arrays;
 import java.util.Objects;
 
-public class ClausewitzDate {
+public final class ClausewitzDate {
 
     private int day;
     private int month;

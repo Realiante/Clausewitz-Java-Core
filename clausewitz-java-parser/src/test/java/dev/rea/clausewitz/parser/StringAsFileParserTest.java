@@ -16,9 +16,9 @@
 
 package dev.rea.clausewitz.parser;
 
-import dev.rea.clausewitz.entries.ClausewitzMapParsedEntry;
-import dev.rea.clausewitz.entries.ClausewitzParsedEntry;
 import dev.rea.clausewitz.interfaces.Result;
+import dev.rea.clausewitz.parser.entries.ClauseParsedEntry;
+import dev.rea.clausewitz.parser.entries.ParsedEntry;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -75,10 +75,10 @@ class StringAsFileParserTest {
     @MethodSource("stringSource")
     void parseString(String text, int count, int depth) {
         Assertions.assertDoesNotThrow(() -> {
-            Result<ArrayList<ClausewitzParsedEntry>> result = ClausewitzFileParser.parse(text);
-            Optional<ArrayList<ClausewitzParsedEntry>> resOpt = result.getResult();
+            Result<ArrayList<ParsedEntry>> result = ClausewitzFileParser.parse(text);
+            Optional<ArrayList<ParsedEntry>> resOpt = result.getResult();
 
-            List<ClausewitzParsedEntry> list = null;
+            List<ParsedEntry> list = null;
             if (resOpt.isPresent()) {
                 list = resOpt.get();
             } else {
@@ -88,8 +88,8 @@ class StringAsFileParserTest {
 
             int maxDepth = 0;
             for (var entry : list) {
-                if (entry instanceof ClausewitzMapParsedEntry) {
-                    maxDepth = Math.max(maxDepth, findMaxDepth((ClausewitzMapParsedEntry) entry));
+                if (entry instanceof ClauseParsedEntry) {
+                    maxDepth = Math.max(maxDepth, findMaxDepth((ClauseParsedEntry) entry));
                 }
             }
 
@@ -97,11 +97,11 @@ class StringAsFileParserTest {
         });
     }
 
-    int findMaxDepth(ClausewitzMapParsedEntry entry) {
+    int findMaxDepth(ClauseParsedEntry entry) {
         int maxDepth = entry.getDepth();
         for (var child : entry.getChildren()) {
-            if (child instanceof ClausewitzMapParsedEntry) {
-                maxDepth = Math.max(maxDepth, findMaxDepth((ClausewitzMapParsedEntry) child));
+            if (child instanceof ClauseParsedEntry) {
+                maxDepth = Math.max(maxDepth, findMaxDepth((ClauseParsedEntry) child));
             }
         }
         return maxDepth;

@@ -16,8 +16,8 @@
 
 package dev.rea.clausewitz.parser;
 
-import dev.rea.clausewitz.entries.ClausewitzParsedEntry;
 import dev.rea.clausewitz.interfaces.Result;
+import dev.rea.clausewitz.parser.entries.ParsedEntry;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -34,18 +34,18 @@ class FileParserTest {
     void parseFile() throws URISyntaxException, IOException {
         File file = new File(Objects.requireNonNull(
                 getClass().getClassLoader().getResource("test.txt")).toURI());
-        Result<ArrayList<ClausewitzParsedEntry>> result = ClausewitzFileParser.parse(file);
-        Optional<ArrayList<ClausewitzParsedEntry>> resOpt = result.getResult();
+        Result<ArrayList<ParsedEntry>> result = ClausewitzFileParser.parse(file);
+        Optional<ArrayList<ParsedEntry>> resOpt = result.getResult();
 
         Assertions.assertTrue(result.getMessage().isEmpty());
-        ArrayList<ClausewitzParsedEntry> list = null;
+        ArrayList<ParsedEntry> list = null;
         if (resOpt.isPresent()) {
             list = resOpt.get();
         } else {
             Assertions.fail();
         }
         Assertions.assertEquals(1, list.size());
-        ClausewitzParsedEntry entry = list.get(0);
+        ParsedEntry entry = list.get(0);
 
         String entryString = entry.toString();
         result = ClausewitzFileParser.parse(entryString);
@@ -58,7 +58,7 @@ class FileParserTest {
             Assertions.fail();
         }
         Assertions.assertEquals(1, list.size());
-        ClausewitzParsedEntry entryFromString = list.get(0);
+        ParsedEntry entryFromString = list.get(0);
 
         Assertions.assertEquals(entry.toString(), entryFromString.toString());
     }

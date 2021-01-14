@@ -17,8 +17,8 @@
 package dev.rea.clausewitz.parser;
 
 import dev.rea.clausewitz.ClausewitzLexer;
-import dev.rea.clausewitz.entries.ClausewitzParsedEntry;
 import dev.rea.clausewitz.interfaces.Result;
+import dev.rea.clausewitz.parser.entries.ParsedEntry;
 import dev.rea.clausewitz.parser.listeners.ClausewitzFileListener;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
@@ -35,15 +35,15 @@ public class ClausewitzFileParser {
         //static class
     }
 
-    public static Result<ArrayList<ClausewitzParsedEntry>> parse(File file) throws IOException {
+    public static Result<ArrayList<ParsedEntry>> parse(File file) throws IOException {
         return walkAndGetResults(buildLexer(file));
     }
 
-    public static Result<ArrayList<ClausewitzParsedEntry>> parse(String string) {
+    public static Result<ArrayList<ParsedEntry>> parse(String string) {
         return walkAndGetResults(buildLexer(string));
     }
 
-    private static Result<ArrayList<ClausewitzParsedEntry>> walkAndGetResults(ClausewitzLexer lexer) {
+    private static Result<ArrayList<ParsedEntry>> walkAndGetResults(ClausewitzLexer lexer) {
         var pwe = new ExtendedParser(lexer);
 
         ParseTreeWalker walker = new ParseTreeWalker();
@@ -66,12 +66,12 @@ public class ClausewitzFileParser {
         return new ClausewitzLexer(CharStreams.fromString(string));
     }
 
-    private static class FileParseResult implements Result<ArrayList<ClausewitzParsedEntry>> {
+    private static class FileParseResult implements Result<ArrayList<ParsedEntry>> {
 
         private final String message;
-        private final ArrayList<ClausewitzParsedEntry> entriesResult;
+        private final ArrayList<ParsedEntry> entriesResult;
 
-        public FileParseResult(ArrayList<String> errors, ArrayList<ClausewitzParsedEntry> entriesResult) {
+        public FileParseResult(ArrayList<String> errors, ArrayList<ParsedEntry> entriesResult) {
             String err = null;
 
             if (!errors.isEmpty()) {
@@ -90,7 +90,7 @@ public class ClausewitzFileParser {
         }
 
         @Override
-        public Optional<ArrayList<ClausewitzParsedEntry>> getResult() {
+        public Optional<ArrayList<ParsedEntry>> getResult() {
             return Optional.of(entriesResult);
         }
     }
