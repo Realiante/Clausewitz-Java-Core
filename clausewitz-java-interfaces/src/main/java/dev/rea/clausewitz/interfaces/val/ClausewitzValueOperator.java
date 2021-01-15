@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package dev.rea.clausewitz.core.types;
+package dev.rea.clausewitz.interfaces.val;
 
 public enum ClausewitzValueOperator {
     EQUAL("="),
