@@ -19,7 +19,7 @@ package dev.rea.clausewitz.core.format;
 import dev.rea.clausewitz.interfaces.val.Clause;
 import dev.rea.clausewitz.interfaces.val.ValueType;
 
-public class ClauseFormat extends AbstractValueFormat<Clause> {
+public final class ClauseFormat extends AbstractValueFormat<Clause> {
 
     @Override
     protected Clause buildObject(String string) {

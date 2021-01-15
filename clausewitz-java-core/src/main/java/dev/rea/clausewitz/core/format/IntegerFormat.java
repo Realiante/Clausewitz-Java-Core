@@ -18,7 +18,7 @@ package dev.rea.clausewitz.core.format;
 
 import dev.rea.clausewitz.interfaces.val.ValueType;
 
-public class IntegerFormat extends AbstractValueFormat<Integer> {
+public final class IntegerFormat extends AbstractValueFormat<Integer> {
 
     @Override
     protected Integer buildObject(String string) {

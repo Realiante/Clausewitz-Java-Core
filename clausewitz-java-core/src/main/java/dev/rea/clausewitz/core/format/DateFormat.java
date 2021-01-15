@@ -19,7 +19,7 @@ package dev.rea.clausewitz.core.format;
 import dev.rea.clausewitz.interfaces.val.ClausewitzDate;
 import dev.rea.clausewitz.interfaces.val.ValueType;
 
-public class DateFormat extends AbstractValueFormat<ClausewitzDate> {
+public final class DateFormat extends AbstractValueFormat<ClausewitzDate> {
 
     @Override
     protected ClausewitzDate buildObject(String string) {

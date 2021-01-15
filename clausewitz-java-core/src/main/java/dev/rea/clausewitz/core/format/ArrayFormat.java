@@ -21,7 +21,7 @@ import dev.rea.clausewitz.interfaces.val.ValueType;
 
 import java.util.ArrayList;
 
-public class ArrayFormat extends AbstractValueFormat<ArrayList<Value>> {
+public final class ArrayFormat extends AbstractValueFormat<ArrayList<Value>> {
 
     @Override
     protected ArrayList<Value> buildObject(String string) {

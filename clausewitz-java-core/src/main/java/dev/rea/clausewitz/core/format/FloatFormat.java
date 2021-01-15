@@ -18,7 +18,7 @@ package dev.rea.clausewitz.core.format;
 
 import dev.rea.clausewitz.interfaces.val.ValueType;
 
-public class FloatFormat extends AbstractValueFormat<Float> {
+public final class FloatFormat extends AbstractValueFormat<Float> {
 
     @Override
     protected Float buildObject(String string) {

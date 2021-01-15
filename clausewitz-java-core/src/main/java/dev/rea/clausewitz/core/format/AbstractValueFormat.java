@@ -22,7 +22,7 @@ import dev.rea.clausewitz.interfaces.val.ValueType;
 
 import java.util.Optional;
 
-public abstract class AbstractValueFormat<T> implements Format<T> {
+abstract class AbstractValueFormat<T> implements Format<T> {
 
     protected AbstractValueFormat() {
         //does not take any parameters.

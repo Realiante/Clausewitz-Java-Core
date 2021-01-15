@@ -19,7 +19,7 @@ package dev.rea.clausewitz.core.format;
 import dev.rea.clausewitz.interfaces.val.ClausewitzPercent;
 import dev.rea.clausewitz.interfaces.val.ValueType;
 
-public class PercentFormat extends AbstractValueFormat<ClausewitzPercent> {
+public final class PercentFormat extends AbstractValueFormat<ClausewitzPercent> {
 
     @Override
     protected ClausewitzPercent buildObject(String string) {
