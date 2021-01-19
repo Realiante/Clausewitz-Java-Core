@@ -24,6 +24,8 @@ public interface ClausewitzEntry {
 
     Value getValue();
 
+    void setValue(Value value);
+
     void setName();
 
     String getName();
