@@ -16,7 +16,7 @@
 
 package dev.rea.clausewitz.interfaces.val;
 
-import dev.rea.clausewitz.interfaces.ClausewitzEntry;
+import dev.rea.clausewitz.interfaces.Entry;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -25,25 +25,25 @@ import java.util.Set;
 
 public final class Clause {
 
-    private final Set<ClausewitzEntry> entries = new HashSet<>();
+    private final Set<Entry> entries = new HashSet<>();
 
     public Clause() {
 
     }
 
-    public Clause(Set<ClausewitzEntry> entries) {
+    public Clause(Set<Entry> entries) {
         this.entries.addAll(entries);
     }
 
-    public Clause(ClausewitzEntry... entries) {
+    public Clause(Entry... entries) {
         this.entries.addAll(Arrays.asList(entries));
     }
 
-    public Set<ClausewitzEntry> getChildren() {
+    public Set<Entry> getChildren() {
         return entries;
     }
 
-    public ClausewitzEntry getChild(String name) {
+    public Entry getChild(String name) {
         //TODO: Optimize this: You shouldn't have to search through the set each time you want to retrieve the element.
         for (var entry : entries) {
             if (entry.getName().equals(name)) {

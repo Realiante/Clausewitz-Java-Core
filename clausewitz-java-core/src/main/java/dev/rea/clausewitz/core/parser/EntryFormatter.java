@@ -17,7 +17,7 @@
 package dev.rea.clausewitz.core.parser;
 
 import dev.rea.clausewitz.core.exceptions.UnexpectedException;
-import dev.rea.clausewitz.interfaces.ClausewitzEntry;
+import dev.rea.clausewitz.interfaces.Entry;
 import dev.rea.clausewitz.interfaces.Format;
 import dev.rea.clausewitz.interfaces.Value;
 import dev.rea.clausewitz.interfaces.val.ClausewitzDate;
@@ -30,8 +30,8 @@ import java.util.Set;
 
 abstract class EntryFormatter {
 
-    protected final Set<ClausewitzEntry> format(ArrayList<ParsedEntry> entries) {
-        Set<ClausewitzEntry> entrySet = new HashSet<>();
+    protected final Set<Entry> format(ArrayList<ParsedEntry> entries) {
+        Set<Entry> entrySet = new HashSet<>();
         entries.forEach(entry -> {
             Object objValue = fetchParser(entry).parse(entry.valueToString());
             //todo when an entry class is added

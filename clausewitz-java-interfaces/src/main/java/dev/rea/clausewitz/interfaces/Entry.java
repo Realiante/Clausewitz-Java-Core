@@ -17,9 +17,9 @@
 package dev.rea.clausewitz.interfaces;
 
 
-public interface ClausewitzEntry {
+public interface Entry {
 
-    ClausewitzEntry getParent();
+    Entry getParent();
 
     Value<?> getValue();
 

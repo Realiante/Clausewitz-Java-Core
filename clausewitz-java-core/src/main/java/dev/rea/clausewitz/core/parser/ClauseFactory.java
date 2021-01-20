@@ -16,7 +16,7 @@
 
 package dev.rea.clausewitz.core.parser;
 
-import dev.rea.clausewitz.interfaces.ClausewitzEntry;
+import dev.rea.clausewitz.interfaces.Entry;
 import dev.rea.clausewitz.interfaces.Result;
 import dev.rea.clausewitz.interfaces.val.Clause;
 import dev.rea.clausewitz.parser.entries.ParsedEntry;
@@ -35,7 +35,7 @@ public final class ClauseFactory {
         return null;
     }
 
-    public final Clause build(Set<ClausewitzEntry> entries) {
+    public final Clause build(Set<Entry> entries) {
         //todo
         return null;
     }
