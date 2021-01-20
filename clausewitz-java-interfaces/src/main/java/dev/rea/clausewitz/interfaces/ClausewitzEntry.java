@@ -24,12 +24,12 @@ public interface ClausewitzEntry {
 
     Value getValue();
 
-    void setValue(Value value);
-
     void setName();
 
     String getName();
 
     String getOperatorAsText();
+
+    String getEntryAsText();
 
 }
