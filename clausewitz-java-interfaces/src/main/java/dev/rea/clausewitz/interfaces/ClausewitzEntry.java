@@ -16,13 +16,12 @@
 
 package dev.rea.clausewitz.interfaces;
 
-import dev.rea.clausewitz.interfaces.val.Value;
 
 public interface ClausewitzEntry {
 
     ClausewitzEntry getParent();
 
-    Value getValue();
+    Value<?> getValue();
 
     void setName();
 

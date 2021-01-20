@@ -14,23 +14,35 @@
  *    limitations under the License.
  */
 
-package dev.rea.clausewitz.core.format;
+package dev.rea.clausewitz.core.parser;
 
-import dev.rea.clausewitz.interfaces.Value;
-import dev.rea.clausewitz.interfaces.val.ValueType;
+import dev.rea.clausewitz.interfaces.ClausewitzEntry;
+import dev.rea.clausewitz.interfaces.Result;
+import dev.rea.clausewitz.interfaces.val.Clause;
+import dev.rea.clausewitz.parser.entries.ParsedEntry;
 
 import java.util.ArrayList;
+import java.util.Set;
 
-public final class ArrayFormat extends AbstractValueFormat<ArrayList<Value<?>>> {
+public final class ClauseFactory {
 
-    @Override
-    protected ArrayList<Value<?>> buildObject(String string) {
-        //TODO: When arrays are added
-        throw new UnsupportedOperationException();
+    private ClauseFactory() {
+        //static class
     }
 
-    @Override
-    public ValueType getValueType() {
-        return ValueType.ARRAY;
+    public final Result<Clause> parse(String clauseAsString) {
+        //todo
+        return null;
+    }
+
+    public final Clause build(Set<ClausewitzEntry> entries) {
+        //todo
+        return null;
+    }
+
+    protected final Clause build(ArrayList<ParsedEntry> entries) {
+
+        //todo
+        return null;
     }
 }

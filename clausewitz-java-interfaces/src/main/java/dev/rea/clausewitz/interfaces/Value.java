@@ -14,23 +14,21 @@
  *    limitations under the License.
  */
 
-package dev.rea.clausewitz.core.format;
+package dev.rea.clausewitz.interfaces;
 
-import dev.rea.clausewitz.interfaces.Value;
 import dev.rea.clausewitz.interfaces.val.ValueType;
 
-import java.util.ArrayList;
+public abstract class Value<T> {
 
-public final class ArrayFormat extends AbstractValueFormat<ArrayList<Value<?>>> {
+    protected T val;
 
-    @Override
-    protected ArrayList<Value<?>> buildObject(String string) {
-        //TODO: When arrays are added
-        throw new UnsupportedOperationException();
+    protected Value(T val) {
+        setValue(val);
     }
 
-    @Override
-    public ValueType getValueType() {
-        return ValueType.ARRAY;
+    public void setValue(T obj) {
+        this.val = obj;
     }
+
+    public abstract ValueType getType();
 }
