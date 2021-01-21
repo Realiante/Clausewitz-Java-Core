@@ -19,9 +19,7 @@ package dev.rea.clausewitz.core.parser;
 import dev.rea.clausewitz.common.contracts.Entry;
 import dev.rea.clausewitz.common.contracts.Result;
 import dev.rea.clausewitz.common.values.Clause;
-import dev.rea.clausewitz.parser.entries.ParsedEntry;
 
-import java.util.ArrayList;
 import java.util.Set;
 
 public final class ClauseFactory {
@@ -36,12 +34,6 @@ public final class ClauseFactory {
     }
 
     public final Clause build(Set<Entry> entries) {
-        //todo
-        return null;
-    }
-
-    protected final Clause build(ArrayList<ParsedEntry> entries) {
-
         //todo
         return null;
     }
