@@ -14,8 +14,9 @@
  *    limitations under the License.
  */
 
-package dev.rea.clausewitz.parser;
+package dev.rea.clausewitz.common.val;
 
+import dev.rea.clausewitz.common.values.ClausewitzPercent;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -23,28 +24,19 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
-class FileErrorsTest {
+class CPercentTest {
 
-    static Stream<Arguments> fileStringSource() {
+    static Stream<Arguments> parseTestSource() {
         return Stream.of(
-                Arguments.of("u?"), //error here
-                Arguments.of("name = u sr"),
-                Arguments.of("first <= {\n" +
-                        "test1 >= { 0 0 0 \n" + //error here
-                        "}\n" +
-                        "second > {\n" +
-                        "test2 < { 0 0 0 }\n" +
-                        "}")
+                Arguments.of("1%", new ClausewitzPercent(1)),
+                Arguments.of("2%", new ClausewitzPercent(2)),
+                Arguments.of("155%", new ClausewitzPercent(155))
         );
     }
 
     @ParameterizedTest
-    @MethodSource("fileStringSource")
-    void errorFileTest(String string) {
-        var result = ClausewitzParser.parseFile(string);
-        Assertions.assertTrue(result.getResult().isPresent());
-        Assertions.assertTrue(result.getMessage().isPresent());
-        System.out.println(result.getMessage().get());
+    @MethodSource("parseTestSource")
+    void parseTest(String string, ClausewitzPercent expected) {
+        Assertions.assertEquals(expected, ClausewitzPercent.parsePercent(string));
     }
-
 }

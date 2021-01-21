@@ -16,7 +16,7 @@
 
 package dev.rea.clausewitz.parser;
 
-import dev.rea.clausewitz.interfaces.val.ValueType;
+import dev.rea.clausewitz.common.values.ValueType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -38,7 +38,7 @@ class ValueErrorsTest {
     @ParameterizedTest
     @MethodSource("valueStringSource")
     void errorTest(String string, boolean expectingErrors, ValueType expectedType) {
-        var result = ClausewitzValueParser.parse(string);
+        var result = ClausewitzParser.parseFile(string);
         if (expectedType != null) {
             Assertions.assertTrue(result.getResult().isPresent());
             Assertions.assertSame(expectedType, result.getResult().get());

@@ -16,11 +16,11 @@
 
 package dev.rea.clausewitz.core.parser;
 
-import dev.rea.clausewitz.core.format.*;
-import dev.rea.clausewitz.interfaces.Format;
-import dev.rea.clausewitz.interfaces.Value;
-import dev.rea.clausewitz.interfaces.val.ClausewitzDate;
-import dev.rea.clausewitz.interfaces.val.ClausewitzPercent;
+import dev.rea.clausewitz.common.formats.*;
+import dev.rea.clausewitz.common.contracts.Format;
+import dev.rea.clausewitz.common.contracts.Value;
+import dev.rea.clausewitz.common.values.ClausewitzDate;
+import dev.rea.clausewitz.common.values.ClausewitzPercent;
 
 import java.util.ArrayList;
 

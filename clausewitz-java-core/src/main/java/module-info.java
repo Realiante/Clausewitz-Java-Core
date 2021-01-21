@@ -1,5 +1,5 @@
 module clausewitz.java.core {
-    requires transitive clausewitz.java.interfaces;
+    requires transitive clausewitz.java.common;
     requires clausewitz.java.parser;
 
     exports dev.rea.clausewitz.core.format;

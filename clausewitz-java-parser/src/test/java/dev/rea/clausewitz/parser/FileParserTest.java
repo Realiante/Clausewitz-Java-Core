@@ -16,7 +16,7 @@
 
 package dev.rea.clausewitz.parser;
 
-import dev.rea.clausewitz.interfaces.Result;
+import dev.rea.clausewitz.common.contracts.Result;
 import dev.rea.clausewitz.parser.entries.ParsedEntry;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -34,7 +34,7 @@ class FileParserTest {
     void parseFile() throws URISyntaxException, IOException {
         File file = new File(Objects.requireNonNull(
                 getClass().getClassLoader().getResource("test.txt")).toURI());
-        Result<ArrayList<ParsedEntry>> result = ClausewitzFileParser.parse(file);
+        Result<ArrayList<ParsedEntry>> result = ClausewitzParser.parseFile(file);
         Optional<ArrayList<ParsedEntry>> resOpt = result.getResult();
 
         Assertions.assertTrue(result.getMessage().isEmpty());
@@ -48,7 +48,7 @@ class FileParserTest {
         ParsedEntry entry = list.get(0);
 
         String entryString = entry.toString();
-        result = ClausewitzFileParser.parse(entryString);
+        result = ClausewitzParser.parseFile(entryString);
         resOpt = result.getResult();
         Assertions.assertTrue(result.getMessage().isEmpty());
         list = null;

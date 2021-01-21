@@ -16,8 +16,8 @@
 
 package dev.rea.clausewitz.parser;
 
-import dev.rea.clausewitz.interfaces.Result;
-import dev.rea.clausewitz.interfaces.val.ValueType;
+import dev.rea.clausewitz.common.contracts.Result;
+import dev.rea.clausewitz.common.values.ValueType;
 import dev.rea.clausewitz.parser.entries.ClauseParsedEntry;
 import dev.rea.clausewitz.parser.entries.ParsedEntry;
 import org.junit.jupiter.api.Assertions;
@@ -32,7 +32,7 @@ class ValueTypeTest {
         String toParse = "first = 100 \n" + "second = 200%" + "third = {\n" +
                 "childOfThird = {0 0 0}\n " + "}";
 
-        Result<ArrayList<ParsedEntry>> result = ClausewitzFileParser.parse(toParse);
+        Result<ArrayList<ParsedEntry>> result = ClausewitzParser.parseFile(toParse);
         Assertions.assertTrue(result.getMessage().isEmpty());
         Assertions.assertTrue(result.getResult().isPresent());
         var entries = result.getResult().get();

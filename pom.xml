@@ -59,7 +59,7 @@
 
     <modules>
         <module>clausewitz-java-parser</module>
-        <module>clausewitz-java-interfaces</module>
+        <module>clausewitz-java-common</module>
         <module>clausewitz-java-core</module>
         <module>clausewitz-java-core-plugin</module>
     </modules>

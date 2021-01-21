@@ -17,11 +17,11 @@
 package dev.rea.clausewitz.core.parser;
 
 import dev.rea.clausewitz.core.exceptions.UnexpectedException;
-import dev.rea.clausewitz.interfaces.Entry;
-import dev.rea.clausewitz.interfaces.Format;
-import dev.rea.clausewitz.interfaces.Value;
-import dev.rea.clausewitz.interfaces.val.ClausewitzDate;
-import dev.rea.clausewitz.interfaces.val.ClausewitzPercent;
+import dev.rea.clausewitz.common.contracts.Entry;
+import dev.rea.clausewitz.common.contracts.Format;
+import dev.rea.clausewitz.common.contracts.Value;
+import dev.rea.clausewitz.common.values.ClausewitzDate;
+import dev.rea.clausewitz.common.values.ClausewitzPercent;
 import dev.rea.clausewitz.parser.entries.ParsedEntry;
 
 import java.util.ArrayList;
