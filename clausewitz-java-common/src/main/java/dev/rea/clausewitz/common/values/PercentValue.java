@@ -29,4 +29,9 @@ public class PercentValue extends Value<ClausewitzPercent> {
     public ValueType getType() {
         return ValueType.PERCENT;
     }
+
+    @Override
+    public String getText(int offset) {
+        return val.toString();
+    }
 }

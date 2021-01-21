@@ -30,4 +30,9 @@ public class DateValue extends Value<ClausewitzDate> {
     public ValueType getType() {
         return ValueType.DATE;
     }
+
+    @Override
+    public String getText(int offset) {
+        return val.toString();
+    }
 }

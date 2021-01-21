@@ -29,4 +29,9 @@ public class IntegerValue extends Value<Integer> {
     public ValueType getType() {
         return ValueType.INT;
     }
+
+    @Override
+    public String getText(int offset) {
+        return val.toString();
+    }
 }

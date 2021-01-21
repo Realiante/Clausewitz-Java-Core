@@ -17,8 +17,6 @@
 package dev.rea.clausewitz.common.values;
 
 import dev.rea.clausewitz.common.contracts.Value;
-import dev.rea.clausewitz.common.values.Clause;
-import dev.rea.clausewitz.common.values.ValueType;
 
 public class ClauseValue extends Value<Clause> {
 
@@ -29,5 +27,10 @@ public class ClauseValue extends Value<Clause> {
     @Override
     public ValueType getType() {
         return ValueType.CLAUSE;
+    }
+
+    @Override
+    public String getText(int offset) {
+        return val.getText(offset);
     }
 }

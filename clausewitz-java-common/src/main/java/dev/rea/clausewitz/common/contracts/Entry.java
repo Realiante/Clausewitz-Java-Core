@@ -17,16 +17,52 @@
 package dev.rea.clausewitz.common.contracts;
 
 
-public interface Entry {
+import dev.rea.clausewitz.common.values.ValueOperator;
 
-    Value<?> getValue();
+import java.util.Objects;
 
-    void setName();
+public abstract class Entry {
 
-    String getName();
+    public final Value<?> value;
+    private String name;
+    private ValueOperator operator;
 
-    String getOperatorAsText();
+    public Entry(String name, ValueOperator operator, Value<?> value) {
+        this.name = name;
+        this.operator = operator;
+        this.value = value;
+    }
 
-    String getEntryAsText();
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public ValueOperator getOperator() {
+        return operator;
+    }
+
+    public void setOperator(ValueOperator operator) {
+        this.operator = operator;
+    }
+
+    public String getText(int offset) {
+        return String.format("%s%s %s %s", "\t".repeat(offset), name, operator, value);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Entry entry = (Entry) o;
+        return name.equals(entry.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
 }

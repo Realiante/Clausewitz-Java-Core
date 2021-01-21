@@ -54,6 +54,13 @@ public final class Clause {
         return null;
     }
 
+    public String getText(int offset) {
+        String format = "%s{%s%n}";
+        StringBuilder content = new StringBuilder("");
+        entries.forEach(entry -> content.append(String.format("%s%n", entry.getText(offset + 1))));
+        return String.format(format, offset, content);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

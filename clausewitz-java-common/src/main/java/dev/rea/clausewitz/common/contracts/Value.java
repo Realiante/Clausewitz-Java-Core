@@ -31,4 +31,6 @@ public abstract class Value<T> {
     }
 
     public abstract ValueType getType();
+
+    public abstract String getText(int offset);
 }

@@ -16,7 +16,7 @@
 
 package dev.rea.clausewitz.common.values;
 
-public enum ClausewitzValueOperator {
+public enum ValueOperator {
     EQUAL("="),
     GREATER_OR_EQUAL(">="),
     LESSER_OR_EQUAL("<="),
@@ -25,11 +25,11 @@ public enum ClausewitzValueOperator {
 
     String op;
 
-    ClausewitzValueOperator(String op) {
+    ValueOperator(String op) {
         this.op = op;
     }
 
-    public static ClausewitzValueOperator get(String operation) {
+    public static ValueOperator get(String operation) {
         for (var operator : values()) {
             if (operator.op.equals(operation)) {
                 return operator;

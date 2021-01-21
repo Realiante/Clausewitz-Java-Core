@@ -17,7 +17,8 @@
 package dev.rea.clausewitz.common.values;
 
 import dev.rea.clausewitz.common.contracts.Value;
-import dev.rea.clausewitz.common.values.ValueType;
+
+import java.util.ArrayList;
 
 public class GenericValue extends Value<Object> {
 
@@ -40,5 +41,23 @@ public class GenericValue extends Value<Object> {
     @Override
     public ValueType getType() {
         return type;
+    }
+
+    @Override
+    public String getText(int offset) {
+        if (getType() == ValueType.CLAUSE) {
+            return ((Clause) val).getText(offset);
+        } else if (getType() == ValueType.ARRAY) {
+            StringBuilder builder = new StringBuilder("");
+            @SuppressWarnings("unchecked") // while this smells, looks and tastes bad, the only logically possible array list is an array list of Value<?>
+            ArrayList<Value<?>> values = (ArrayList<Value<?>>) val;
+            for (var object : values) {
+                builder.append(String.format(" %s", object.getText(offset)));
+            }
+            builder.append(" ");
+            return builder.toString();
+        } else {
+            return val.toString();
+        }
     }
 }

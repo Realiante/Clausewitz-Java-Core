@@ -29,4 +29,9 @@ public class StringValue extends Value<String> {
     public ValueType getType() {
         return ValueType.STRING;
     }
+
+    @Override
+    public String getText(int offset) {
+        return val;
+    }
 }

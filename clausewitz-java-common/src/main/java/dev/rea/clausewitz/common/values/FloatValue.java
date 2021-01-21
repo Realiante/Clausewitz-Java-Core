@@ -28,4 +28,9 @@ public class FloatValue extends Value<Float> {
     public ValueType getType() {
         return ValueType.FLOAT;
     }
+
+    @Override
+    public String getText(int offset) {
+        return val.toString();
+    }
 }

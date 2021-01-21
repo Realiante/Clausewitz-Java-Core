@@ -17,7 +17,6 @@
 package dev.rea.clausewitz.common.values;
 
 import dev.rea.clausewitz.common.contracts.Value;
-import dev.rea.clausewitz.common.values.ValueType;
 
 import java.util.ArrayList;
 
@@ -30,5 +29,15 @@ public class ArrayValue extends Value<ArrayList<Value<?>>> {
     @Override
     public ValueType getType() {
         return ValueType.ARRAY;
+    }
+
+    @Override
+    public String getText(int offset) {
+        StringBuilder builder = new StringBuilder("");
+        for (var object : val) {
+            builder.append(String.format(" %s", object.getText(offset)));
+        }
+        builder.append(" ");
+        return builder.toString();
     }
 }
