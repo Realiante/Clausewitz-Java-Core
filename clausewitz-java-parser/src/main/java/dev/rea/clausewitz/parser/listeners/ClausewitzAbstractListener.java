@@ -52,10 +52,10 @@ public abstract class ClausewitzAbstractListener extends ClausewitzBaseListener 
 
         String error;
         if (lastErrPairText != null) {
-            error = String.format("Error caused by input: %s%n%s after %s", lastErrPairText, errorText, lastVisitedText);
+            error = String.format("Invalid input: %s%n%s after %s", lastErrPairText, errorText, lastVisitedText);
             lastErrPairText = null;
         } else {
-            error = String.format("Error caused by input: %s %s", lastVisitedText, errorText);
+            error = String.format("Invalid input: %s %s", lastVisitedText, errorText);
         }
 
         errors.add(error);
@@ -97,5 +97,9 @@ public abstract class ClausewitzAbstractListener extends ClausewitzBaseListener 
 
     public ArrayList<String> getErrors() {
         return errors;
+    }
+
+    protected void addError(String message) {
+        errors.add(message);
     }
 }
