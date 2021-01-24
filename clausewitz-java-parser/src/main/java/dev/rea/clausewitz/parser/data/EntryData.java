@@ -14,20 +14,22 @@
  *    limitations under the License.
  */
 
-package dev.rea.clausewitz.parser.entries.builders;
+package dev.rea.clausewitz.parser.data;
 
-import dev.rea.clausewitz.parser.entries.ParsedEntry;
+import dev.rea.clausewitz.common.values.ValueOperator;
 
-abstract class BaseEntryBuilder {
-    public final ClauseEntryBuilder parent;
+/**
+ * Mimics the structure of the common entry.
+ */
+public final class EntryData {
+
     public final String name;
-    public final String valueOperator;
+    public final ValueOperator operator;
+    public final ValueData value;
 
-    protected BaseEntryBuilder(ClauseEntryBuilder parent, String name, String valueOperator) {
-        this.parent = parent;
+    public EntryData(String name, ValueOperator operator, ValueData value) {
         this.name = name;
-        this.valueOperator = valueOperator;
+        this.operator = operator;
+        this.value = value;
     }
-
-    public abstract ParsedEntry build();
 }
