@@ -16,28 +16,6 @@
 
 package dev.rea.clausewitz.parser.data;
 
-import dev.rea.clausewitz.common.values.ValueType;
-
-import java.util.ArrayList;
-
-public final class ClauseData implements CollectionData {
-    public final ArrayList<EntryData> entries;
-
-    public ClauseData(ArrayList<EntryData> entries) {
-        this.entries = entries;
-    }
-
-    @Override
-    public ValueType getType() {
-        return ValueType.CLAUSE;
-    }
-
-    @Override
-    public boolean addData(Data data) {
-        if (!data.isValueType()) {
-            entries.add((EntryData) data);
-            return true;
-        }
-        return false;
-    }
+public interface CollectionData extends ValueData {
+    boolean addData(Data data);
 }

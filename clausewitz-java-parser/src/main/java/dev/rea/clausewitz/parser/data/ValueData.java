@@ -18,6 +18,11 @@ package dev.rea.clausewitz.parser.data;
 
 import dev.rea.clausewitz.common.values.ValueType;
 
-public interface ValueData {
+public interface ValueData extends Data {
     ValueType getType();
+
+    @Override
+    default boolean isValueType() {
+        return true;
+    }
 }

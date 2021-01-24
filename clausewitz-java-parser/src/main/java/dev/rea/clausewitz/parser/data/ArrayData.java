@@ -20,7 +20,7 @@ import dev.rea.clausewitz.common.values.ValueType;
 
 import java.util.ArrayList;
 
-public final class ArrayData implements ValueData {
+public final class ArrayData implements CollectionData {
     public final ArrayList<ValueData> elements;
 
     public ArrayData(ArrayList<ValueData> elements) {
@@ -30,5 +30,14 @@ public final class ArrayData implements ValueData {
     @Override
     public ValueType getType() {
         return ValueType.ARRAY;
+    }
+
+    @Override
+    public boolean addData(Data data) {
+        if (data.isValueType()) {
+            elements.add((ValueData) data);
+            return true;
+        }
+        return false;
     }
 }

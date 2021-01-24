@@ -21,7 +21,7 @@ import dev.rea.clausewitz.common.values.ValueOperator;
 /**
  * Mimics the structure of the common entry.
  */
-public final class EntryData {
+public final class EntryData implements Data{
 
     public final String name;
     public final ValueOperator operator;
@@ -31,5 +31,10 @@ public final class EntryData {
         this.name = name;
         this.operator = operator;
         this.value = value;
+    }
+
+    @Override
+    public boolean isValueType() {
+        return false;
     }
 }
