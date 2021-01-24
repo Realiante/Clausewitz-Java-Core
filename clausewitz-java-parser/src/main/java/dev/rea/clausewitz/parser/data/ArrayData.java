@@ -21,10 +21,10 @@ import dev.rea.clausewitz.common.values.ValueType;
 import java.util.ArrayList;
 
 public final class ArrayData implements CollectionData {
-    public final ArrayList<ValueData> elements;
+    public final ArrayList<ValueData> elements = new ArrayList<>();
 
-    public ArrayData(ArrayList<ValueData> elements) {
-        this.elements = elements;
+    public ArrayData() {
+
     }
 
     @Override

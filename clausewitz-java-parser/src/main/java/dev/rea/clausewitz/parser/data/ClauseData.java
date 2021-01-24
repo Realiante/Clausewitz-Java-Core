@@ -21,10 +21,9 @@ import dev.rea.clausewitz.common.values.ValueType;
 import java.util.ArrayList;
 
 public final class ClauseData implements CollectionData {
-    public final ArrayList<EntryData> entries;
+    public final ArrayList<EntryData> entries = new ArrayList<>();
 
-    public ClauseData(ArrayList<EntryData> entries) {
-        this.entries = entries;
+    public ClauseData() {
     }
 
     @Override
